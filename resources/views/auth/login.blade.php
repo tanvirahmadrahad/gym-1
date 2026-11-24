@@ -45,25 +45,6 @@
             </div>
         @endif
 
-        <!-- Demo Credentials Helper Pill -->
-        <div class="mb-5 p-3 rounded-xl bg-[#e2ff38]/10 border border-[#e2ff38]/25 flex items-center justify-between text-xs">
-            <div class="flex items-center gap-2">
-                <span class="w-6 h-6 rounded-md bg-[#e2ff38]/20 flex items-center justify-center text-[#e2ff38]">
-                    <i class="fa-solid fa-key text-[11px]"></i>
-                </span>
-                <span class="text-gray-300">
-                    Demo: <strong class="text-white font-mono bg-white/10 px-1 py-0.5 rounded text-[11px]">demo</strong> / <strong class="text-white font-mono bg-white/10 px-1 py-0.5 rounded text-[11px]">demo</strong>
-                </span>
-            </div>
-            <button 
-                type="button" 
-                onclick="fillDemoCredentials()" 
-                class="bg-[#e2ff38] hover:bg-[#d0ee27] text-black font-extrabold text-[10px] uppercase px-2.5 py-1 rounded transition-colors cursor-pointer"
-            >
-                Auto Fill
-            </button>
-        </div>
-
         <!-- Login Form -->
         <form method="POST" action="{{ route('login.post') }}" class="space-y-4">
             @csrf
@@ -147,6 +128,18 @@
             </button>
         </form>
 
+        <!-- 1-Click Demo Login Option (Direct login on click) -->
+        <div class="mt-5 pt-4 border-t border-white/10 text-center">
+            <button 
+                type="button" 
+                onclick="triggerDirectDemoLogin(this)" 
+                class="w-full py-3 px-4 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 hover:border-[#e2ff38]/40 text-gray-300 hover:text-[#e2ff38] transition-all text-xs font-semibold flex items-center justify-center gap-2 cursor-pointer group"
+            >
+                <i class="fa-solid fa-bolt text-[#e2ff38] group-hover:scale-110 transition-transform"></i>
+                <span>Instant Demo Login <span class="text-[11px] text-gray-400 font-normal">(demo / demo)</span></span>
+            </button>
+        </div>
+
         <!-- Footer Links -->
         <div class="mt-8 pt-6 border-t border-white/10 text-center text-xs text-gray-400">
             <span>Don't have an account yet?</span>
@@ -158,11 +151,42 @@
 </div>
 
 <script>
-function fillDemoCredentials() {
-    const email = document.getElementById('email') || document.getElementById('modal-email');
-    const pass = document.getElementById('password') || document.getElementById('modal-password');
-    if (email) email.value = 'demo';
-    if (pass) pass.value = 'demo';
+async function triggerDirectDemoLogin(button) {
+    const originalContent = button ? button.innerHTML : '';
+    if (button) {
+        button.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-[#e2ff38]"></i> <span>Logging in as Demo Member...</span>';
+        button.disabled = true;
+    }
+
+    try {
+        const csrfToken = document.querySelector('input[name="_token"]')?.value || '{{ csrf_token() }}';
+        const formData = new FormData();
+        formData.append('_token', csrfToken);
+        formData.append('email', 'demo');
+        formData.append('password', 'demo');
+
+        const response = await fetch('{{ route("login.post") }}', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            body: formData
+        });
+
+        const data = await response.json();
+        if (response.ok && data.success) {
+            window.location.href = data.redirect || '{{ url("/") }}';
+        } else {
+            alert(data.message || 'Demo login failed');
+            if (button) {
+                button.innerHTML = originalContent;
+                button.disabled = false;
+            }
+        }
+    } catch (e) {
+        window.location.href = '{{ route("login.demo") }}';
+    }
 }
 
 function openResetPasswordModal() {
