@@ -32,6 +32,45 @@ class AuthController extends Controller
 
         $remember = $request->boolean('remember');
 
+        // Instant Demo Account Handler
+        $loginInput = strtolower(trim($credentials['email']));
+        if (($loginInput === 'demo' || $loginInput === 'demo@fitnes.com') && $credentials['password'] === 'demo') {
+            try {
+                $user = User::firstOrCreate(
+                    ['email' => 'demo@fitnes.com'],
+                    ['name' => 'demo', 'password' => Hash::make('demo')]
+                );
+                if (! Hash::check('demo', $user->password)) {
+                    $user->password = Hash::make('demo');
+                    $user->name = 'demo';
+                    $user->save();
+                }
+            } catch (\Throwable $e) {
+                $user = new User([
+                    'id' => 9999,
+                    'name' => 'demo',
+                    'email' => 'demo@fitnes.com',
+                ]);
+            }
+
+            Auth::login($user, $remember);
+            $request->session()->regenerate();
+
+            if ($request->wantsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Logged in successfully as Demo Member!',
+                    'redirect' => url('/'),
+                    'user' => [
+                        'name' => $user->name,
+                        'email' => $user->email,
+                    ],
+                ]);
+            }
+
+            return redirect()->intended('/')->with('success', 'Welcome back, demo!');
+        }
+
         $fieldType = filter_var($credentials['email'], FILTER_VALIDATE_EMAIL) ? 'email' : 'name';
         $authAttempt = [
             $fieldType => $credentials['email'],
@@ -73,10 +112,18 @@ class AuthController extends Controller
      */
     public function demoLogin(Request $request): RedirectResponse|JsonResponse
     {
-        $user = User::firstOrCreate(
-            ['email' => 'tanvir@fitnes.com'],
-            ['name' => 'Tanvir Ahmad', 'password' => Hash::make('password')]
-        );
+        try {
+            $user = User::firstOrCreate(
+                ['email' => 'demo@fitnes.com'],
+                ['name' => 'demo', 'password' => Hash::make('demo')]
+            );
+        } catch (\Throwable $e) {
+            $user = new User([
+                'id' => 9999,
+                'name' => 'demo',
+                'email' => 'demo@fitnes.com',
+            ]);
+        }
 
         Auth::login($user, true);
         $request->session()->regenerate();

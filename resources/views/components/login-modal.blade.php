@@ -28,6 +28,25 @@
                 <span id="login-modal-error-text"></span>
             </div>
 
+            <!-- Demo Credentials Helper Pill -->
+            <div class="mb-4 p-2.5 rounded-xl bg-[#e2ff38]/10 border border-[#e2ff38]/25 flex items-center justify-between text-xs">
+                <div class="flex items-center gap-2">
+                    <span class="w-6 h-6 rounded-md bg-[#e2ff38]/20 flex items-center justify-center text-[#e2ff38]">
+                        <i class="fa-solid fa-key text-[11px]"></i>
+                    </span>
+                    <span class="text-gray-300">
+                        Demo: <strong class="text-white font-mono bg-white/10 px-1 py-0.5 rounded text-[11px]">demo</strong> / <strong class="text-white font-mono bg-white/10 px-1 py-0.5 rounded text-[11px]">demo</strong>
+                    </span>
+                </div>
+                <button 
+                    type="button" 
+                    onclick="fillDemoCredentials()" 
+                    class="bg-[#e2ff38] hover:bg-[#d0ee27] text-black font-extrabold text-[10px] uppercase px-2.5 py-1 rounded transition-colors cursor-pointer"
+                >
+                    Auto Fill
+                </button>
+            </div>
+
             <!-- Form -->
             <form id="login-modal-form" method="POST" action="{{ route('login.post') }}" class="space-y-4">
                 @csrf
@@ -226,6 +245,13 @@
 <script>
 let resetCooldownTimer = null;
 let resetSecondsLeft = 60;
+
+function fillDemoCredentials() {
+    const email = document.getElementById('modal-email') || document.getElementById('email');
+    const pass = document.getElementById('modal-password') || document.getElementById('password');
+    if (email) email.value = 'demo';
+    if (pass) pass.value = 'demo';
+}
 
 function openLoginModal() {
     const modal = document.getElementById('login-modal');

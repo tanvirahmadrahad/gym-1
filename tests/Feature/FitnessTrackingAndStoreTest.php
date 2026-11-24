@@ -221,4 +221,21 @@ class FitnessTrackingAndStoreTest extends TestCase
         $response->assertSee('PR Wall');
         $response->assertSee('Official Gym Rankings');
     }
+
+    /**
+     * Test demo login works with username and password demo.
+     */
+    public function test_demo_login_with_demo_credentials(): void
+    {
+        $response = $this->postJson(route('login.post'), [
+            'email' => 'demo',
+            'password' => 'demo',
+        ]);
+
+        $response->assertStatus(200);
+        $response->assertJson([
+            'success' => true,
+        ]);
+        $this->assertAuthenticated();
+    }
 }
