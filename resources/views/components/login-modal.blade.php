@@ -264,7 +264,7 @@ async function triggerDirectDemoLogin(button) {
 
         const data = await response.json();
         if (response.ok && data.success) {
-            window.location.reload();
+            window.location.href = data.redirect || '{{ url("/") }}';
         } else {
             alert(data.message || 'Demo login failed');
             if (button) {
@@ -435,7 +435,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const data = await response.json();
 
                 if (response.ok && data.success) {
-                    window.location.reload();
+                    window.location.href = data.redirect || '{{ url("/") }}';
                 } else {
                     errorText.textContent = data.message || 'Login failed. Please check credentials.';
                     errorBox.classList.remove('hidden');

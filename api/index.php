@@ -16,5 +16,14 @@ foreach ($storagePaths as $path) {
     }
 }
 
+// Ensure writable SQLite database exists in /tmp populated from seed.db
+$sqliteTarget = '/tmp/database.sqlite';
+$seedSource = __DIR__.'/../database/seed.db';
+
+if (! file_exists($sqliteTarget) && file_exists($seedSource)) {
+    copy($seedSource, $sqliteTarget);
+    chmod($sqliteTarget, 0666);
+}
+
 // Forward request to Laravel's public entrypoint
 require __DIR__.'/../public/index.php';
