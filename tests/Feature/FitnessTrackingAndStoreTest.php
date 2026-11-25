@@ -221,4 +221,66 @@ class FitnessTrackingAndStoreTest extends TestCase
         $response->assertSee('PR Wall');
         $response->assertSee('Official Gym Rankings');
     }
+
+    /**
+     * Test demo login works with username and password demo.
+     */
+    public function test_demo_login_with_demo_credentials(): void
+    {
+        $response = $this->postJson(route('login.post'), [
+            'email' => 'demo',
+            'password' => 'demo',
+        ]);
+
+        $response->assertStatus(200);
+        $response->assertJson([
+            'success' => true,
+        ]);
+        $this->assertAuthenticated();
+    }
+
+    /**
+     * Test authenticated user is redirected away from login page.
+     */
+    public function test_authenticated_user_is_redirected_away_from_login_page(): void
+    {
+        $response = $this->actingAs($this->user)->get(route('login'));
+        $response->assertRedirect(route('home'));
+    }
+
+    /**
+     * Test authenticated user is redirected away from register page.
+     */
+    public function test_authenticated_user_is_redirected_away_from_register_page(): void
+    {
+        $response = $this->actingAs($this->user)->get(route('register'));
+        $response->assertRedirect(route('home'));
+    }
+
+    /**
+     * Test user can renew membership and get invoice.
+     */
+    public function test_user_can_renew_membership_and_generate_invoice(): void
+    {
+        $response = $this->actingAs($this->user)->post(route('profile.renew'), [
+            'duration_months' => 3,
+            'payment_method' => 'Visa •••• 4242',
+        ]);
+
+        $response->assertRedirect(route('profile'));
+        $this->user->refresh();
+        $this->assertEquals('ACTIVE', $this->user->membership_status);
+        $this->assertNotNull($this->user->renewal_date);
+    }
+
+    /**
+     * Test single page printable invoice loads with PDF download button.
+     */
+    public function test_invoice_page_loads_with_pdf_download_button(): void
+    {
+        $response = $this->actingAs($this->user)->get(route('profile.invoice', 'INV-2026-1002'));
+        $response->assertStatus(200);
+        $response->assertSee('Download PDF (1 Page)');
+        $response->assertSee('html2pdf');
+    }
 }

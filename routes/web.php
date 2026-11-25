@@ -22,12 +22,15 @@ Route::get('/api/blog/{slug}', [BlogController::class, 'apiShow'])->name('api.bl
 Route::get('/store', [StoreController::class, 'index'])->name('store.index');
 Route::post('/store/checkout', [StoreController::class, 'checkout'])->name('store.checkout');
 
-// Authentication Routes
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [AuthController::class, 'login'])->name('login.post');
-Route::post('/forgot-password', [AuthController::class, 'forgotPassword'])->name('password.email');
-Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
-Route::post('/register', [AuthController::class, 'register'])->name('register.post');
+// Authentication Routes (Guest Only)
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+    Route::get('/demo-login', [AuthController::class, 'demoLogin'])->name('login.demo');
+    Route::post('/forgot-password', [AuthController::class, 'forgotPassword'])->name('password.email');
+    Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
+    Route::post('/register', [AuthController::class, 'register'])->name('register.post');
+});
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Member Profile & Fitness Tracking Routes (Auth Required)
@@ -35,6 +38,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::post('/profile/change-plan', [ProfileController::class, 'changePlan'])->name('profile.change-plan');
+    Route::post('/profile/renew', [ProfileController::class, 'renew'])->name('profile.renew');
     Route::post('/profile/freeze', [ProfileController::class, 'freezeMembership'])->name('profile.freeze');
     Route::get('/profile/invoice/{id}', [ProfileController::class, 'invoice'])->name('profile.invoice');
 

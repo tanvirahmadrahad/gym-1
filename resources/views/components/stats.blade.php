@@ -4,8 +4,10 @@
 <!-- ========================================================== -->
 <section id="stats" class="py-20 bg-[#06080d] relative overflow-hidden select-none border-t border-white/[0.08]">
     
-    <!-- Ambient Accent Glow -->
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[300px] bg-[#ff5e14]/10 rounded-full blur-[180px] pointer-events-none"></div>
+    <!-- Giant Subtle Outline Watermark -->
+    <div class="bg-watermark top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[15vw] leading-none whitespace-nowrap opacity-25">
+        NUMBERS
+    </div>
 
     <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 relative z-10">
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-7">

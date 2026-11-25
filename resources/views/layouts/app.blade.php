@@ -25,6 +25,10 @@
         </main>
 
         @include('components.footer')
+        @include('components.login-modal')
+        @auth
+            @include('components.change-plan-modal')
+        @endauth
     </div>
 </body>
 </html>

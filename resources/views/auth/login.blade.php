@@ -1,6 +1,11 @@
 @extends('layouts.app', ['title' => 'Member Login - FITNES'])
 
 @section('content')
+@auth
+<script>
+    window.location.replace("{{ route('home') }}");
+</script>
+@endauth
 <div class="min-h-[80vh] flex items-center justify-center py-16 px-4 sm:px-6 bg-[#0a0c10] relative overflow-hidden">
     <!-- Ambient Glow Effect -->
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-[#e2ff38]/5 rounded-full blur-[120px] pointer-events-none"></div>
@@ -128,6 +133,18 @@
             </button>
         </form>
 
+        <!-- 1-Click Demo Login Option (Direct login on click) -->
+        <div class="mt-5 pt-4 border-t border-white/10 text-center">
+            <button 
+                type="button" 
+                onclick="triggerDirectDemoLogin(this)" 
+                class="w-full py-3 px-4 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 hover:border-[#e2ff38]/40 text-gray-300 hover:text-[#e2ff38] transition-all text-xs font-semibold flex items-center justify-center gap-2 cursor-pointer group"
+            >
+                <i class="fa-solid fa-bolt text-[#e2ff38] group-hover:scale-110 transition-transform"></i>
+                <span>Instant Demo Login <span class="text-[11px] text-gray-400 font-normal">(demo / demo)</span></span>
+            </button>
+        </div>
+
         <!-- Footer Links -->
         <div class="mt-8 pt-6 border-t border-white/10 text-center text-xs text-gray-400">
             <span>Don't have an account yet?</span>
@@ -139,6 +156,44 @@
 </div>
 
 <script>
+async function triggerDirectDemoLogin(button) {
+    const originalContent = button ? button.innerHTML : '';
+    if (button) {
+        button.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-[#e2ff38]"></i> <span>Logging in as Demo Member...</span>';
+        button.disabled = true;
+    }
+
+    try {
+        const csrfToken = document.querySelector('input[name="_token"]')?.value || '{{ csrf_token() }}';
+        const formData = new FormData();
+        formData.append('_token', csrfToken);
+        formData.append('email', 'demo');
+        formData.append('password', 'demo');
+
+        const response = await fetch('{{ route("login.post") }}', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            body: formData
+        });
+
+        const data = await response.json();
+        if (response.ok && data.success) {
+            window.location.href = data.redirect || '{{ url("/") }}';
+        } else {
+            alert(data.message || 'Demo login failed');
+            if (button) {
+                button.innerHTML = originalContent;
+                button.disabled = false;
+            }
+        }
+    } catch (e) {
+        window.location.href = '{{ route("login.demo") }}';
+    }
+}
+
 function openResetPasswordModal() {
     const emailVal = document.getElementById('email')?.value || '';
     const modalEmail = document.getElementById('modal-email');

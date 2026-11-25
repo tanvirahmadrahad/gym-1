@@ -15,8 +15,12 @@ class AuthController extends Controller
     /**
      * Show login form.
      */
-    public function showLoginForm(): View
+    public function showLoginForm(): View|RedirectResponse
     {
+        if (Auth::check()) {
+            return redirect()->route('home');
+        }
+
         return view('auth.login');
     }
 
@@ -32,6 +36,50 @@ class AuthController extends Controller
 
         $remember = $request->boolean('remember');
 
+        // Instant Demo Account Handler
+        $loginInput = strtolower(trim($credentials['email']));
+        if (($loginInput === 'demo' || $loginInput === 'demo@fitnes.com') && $credentials['password'] === 'demo') {
+            try {
+                $user = User::firstOrCreate(
+                    ['email' => 'demo@fitnes.com'],
+                    ['name' => 'demo', 'password' => Hash::make('demo')]
+                );
+                if (! Hash::check('demo', $user->password)) {
+                    $user->password = Hash::make('demo');
+                    $user->name = 'demo';
+                    $user->save();
+                }
+            } catch (\Throwable $e) {
+                $user = new User([
+                    'id' => 9999,
+                    'name' => 'demo',
+                    'email' => 'demo@fitnes.com',
+                ]);
+            }
+
+            Auth::login($user, $remember);
+            $request->session()->regenerate();
+
+            $intended = session()->get('url.intended');
+            $targetUrl = ($intended && ! str_contains($intended, '/login') && ! str_contains($intended, '/register'))
+                ? $intended
+                : route('home');
+
+            if ($request->wantsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Logged in successfully as Demo Member!',
+                    'redirect' => $targetUrl,
+                    'user' => [
+                        'name' => $user->name,
+                        'email' => $user->email,
+                    ],
+                ]);
+            }
+
+            return redirect()->to($targetUrl)->with('success', 'Welcome back, demo!');
+        }
+
         $fieldType = filter_var($credentials['email'], FILTER_VALIDATE_EMAIL) ? 'email' : 'name';
         $authAttempt = [
             $fieldType => $credentials['email'],
@@ -41,11 +89,16 @@ class AuthController extends Controller
         if (Auth::attempt($authAttempt, $remember)) {
             $request->session()->regenerate();
 
+            $intended = session()->get('url.intended');
+            $targetUrl = ($intended && ! str_contains($intended, '/login') && ! str_contains($intended, '/register'))
+                ? $intended
+                : route('home');
+
             if ($request->wantsJson()) {
                 return response()->json([
                     'success' => true,
                     'message' => 'Logged in successfully!',
-                    'redirect' => url('/'),
+                    'redirect' => $targetUrl,
                     'user' => [
                         'name' => Auth::user()->name,
                         'email' => Auth::user()->email,
@@ -53,7 +106,7 @@ class AuthController extends Controller
                 ]);
             }
 
-            return redirect()->intended('/')->with('success', 'Welcome back, '.Auth::user()->name.'!');
+            return redirect()->to($targetUrl)->with('success', 'Welcome back, '.Auth::user()->name.'!');
         }
 
         if ($request->wantsJson()) {
@@ -73,10 +126,18 @@ class AuthController extends Controller
      */
     public function demoLogin(Request $request): RedirectResponse|JsonResponse
     {
-        $user = User::firstOrCreate(
-            ['email' => 'tanvir@fitnes.com'],
-            ['name' => 'Tanvir Ahmad', 'password' => Hash::make('password')]
-        );
+        try {
+            $user = User::firstOrCreate(
+                ['email' => 'demo@fitnes.com'],
+                ['name' => 'demo', 'password' => Hash::make('demo')]
+            );
+        } catch (\Throwable $e) {
+            $user = new User([
+                'id' => 9999,
+                'name' => 'demo',
+                'email' => 'demo@fitnes.com',
+            ]);
+        }
 
         Auth::login($user, true);
         $request->session()->regenerate();
@@ -85,7 +146,7 @@ class AuthController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Logged in as Demo Member!',
-                'redirect' => url('/'),
+                'redirect' => route('home'),
                 'user' => [
                     'name' => $user->name,
                     'email' => $user->email,
@@ -93,14 +154,18 @@ class AuthController extends Controller
             ]);
         }
 
-        return redirect('/')->with('success', 'Logged in as Member: '.$user->name);
+        return redirect()->route('home')->with('success', 'Logged in as Member: '.$user->name);
     }
 
     /**
      * Show registration form.
      */
-    public function showRegisterForm(): View
+    public function showRegisterForm(): View|RedirectResponse
     {
+        if (Auth::check()) {
+            return redirect()->route('home');
+        }
+
         return view('auth.register');
     }
 
@@ -118,10 +183,24 @@ class AuthController extends Controller
             'terms.accepted' => 'You must agree to the Terms & Conditions and Gym Rules to proceed.',
         ]);
 
+        $packageName = $request->input('package_name', 'Pro Athlete Membership');
+        $billingCycle = $request->input('billing_cycle', 'monthly');
+        $isYearly = $billingCycle === 'yearly';
+
+        $price = match (strtolower($packageName)) {
+            'basic plan' => $isYearly ? '$260.00 / year' : '$29.00 / month',
+            'elite membership' => $isYearly ? '$890.00 / year' : '$99.00 / month',
+            default => $isYearly ? '$490.00 / year' : '$53.00 / month',
+        };
+
         $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
+            'package_name' => $packageName.($isYearly ? ' (Annual Access)' : ' Membership'),
+            'package_price' => $price,
+            'membership_status' => 'ACTIVE',
+            'renewal_date' => now()->addMonths($isYearly ? 12 : 1),
         ]);
 
         Auth::login($user);

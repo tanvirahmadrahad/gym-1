@@ -4,9 +4,10 @@
 <!-- ========================================================== -->
 <section id="free-trial" class="py-20 lg:py-28 bg-[#06080d] relative overflow-hidden select-none border-t border-white/[0.08]">
     
-    <!-- Ambient Accent Glows -->
-    <div class="absolute top-1/2 -left-20 w-[600px] h-[600px] bg-[#ff5e14]/14 rounded-full blur-[200px] pointer-events-none"></div>
-    <div class="absolute bottom-0 -right-20 w-[550px] h-[550px] bg-cyan-500/10 rounded-full blur-[190px] pointer-events-none"></div>
+    <!-- Giant Subtle Outline Watermark -->
+    <div class="bg-watermark top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[15vw] leading-none whitespace-nowrap opacity-25">
+        DAY PASS
+    </div>
 
     <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 relative z-10">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">

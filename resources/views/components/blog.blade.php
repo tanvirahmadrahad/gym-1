@@ -4,9 +4,10 @@
 <!-- ========================================================== -->
 <section id="blog" class="py-20 lg:py-28 bg-[#06080d] relative overflow-hidden select-none border-t border-white/[0.08]">
     
-    <!-- Ambient Accent Glow -->
-    <div class="absolute top-1/3 -right-20 w-[600px] h-[600px] bg-[#ff5e14]/10 rounded-full blur-[200px] pointer-events-none"></div>
-    <div class="absolute bottom-10 left-10 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[190px] pointer-events-none"></div>
+    <!-- Giant Subtle Outline Watermark -->
+    <div class="bg-watermark top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[15vw] leading-none whitespace-nowrap opacity-25">
+        INSIGHTS
+    </div>
 
     <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 relative z-10">
         

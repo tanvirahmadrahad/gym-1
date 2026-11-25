@@ -3,9 +3,6 @@
 <!-- (Gymstick Obsidian Facility Details & Live Concierge)      -->
 <!-- ========================================================== -->
 <section id="contact" class="py-20 bg-[#06080d] border-t border-white/[0.08] relative select-none">
-    
-    <!-- Ambient Accent Glow -->
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[300px] bg-[#ff5e14]/10 rounded-full blur-[200px] pointer-events-none"></div>
 
     <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 relative z-10">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">

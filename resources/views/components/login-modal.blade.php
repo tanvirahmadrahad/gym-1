@@ -110,6 +110,18 @@
                 </button>
             </form>
 
+            <!-- 1-Click Demo Login Option (Direct login on click) -->
+            <div class="mt-4 pt-3.5 border-t border-white/10 text-center">
+                <button 
+                    type="button" 
+                    onclick="triggerDirectDemoLogin(this)" 
+                    class="w-full py-2.5 px-4 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 hover:border-[#e2ff38]/40 text-gray-300 hover:text-[#e2ff38] transition-all text-xs font-semibold flex items-center justify-center gap-2 cursor-pointer group"
+                >
+                    <i class="fa-solid fa-bolt text-[#e2ff38] group-hover:scale-110 transition-transform"></i>
+                    <span>Instant Demo Login <span class="text-[11px] text-gray-400 font-normal">(demo / demo)</span></span>
+                </button>
+            </div>
+
             <!-- Footer -->
             <div class="mt-5 pt-4 border-t border-white/10 text-center text-xs text-gray-400">
                 <span>New athlete?</span>
@@ -226,6 +238,44 @@
 <script>
 let resetCooldownTimer = null;
 let resetSecondsLeft = 60;
+
+async function triggerDirectDemoLogin(button) {
+    const originalContent = button ? button.innerHTML : '';
+    if (button) {
+        button.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-[#e2ff38]"></i> <span>Logging in...</span>';
+        button.disabled = true;
+    }
+
+    try {
+        const csrfToken = document.querySelector('input[name="_token"]')?.value || '{{ csrf_token() }}';
+        const formData = new FormData();
+        formData.append('_token', csrfToken);
+        formData.append('email', 'demo');
+        formData.append('password', 'demo');
+
+        const response = await fetch('{{ route("login.post") }}', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            body: formData
+        });
+
+        const data = await response.json();
+        if (response.ok && data.success) {
+            window.location.href = data.redirect || '{{ url("/") }}';
+        } else {
+            alert(data.message || 'Demo login failed');
+            if (button) {
+                button.innerHTML = originalContent;
+                button.disabled = false;
+            }
+        }
+    } catch (e) {
+        window.location.href = '{{ route("login.demo") }}';
+    }
+}
 
 function openLoginModal() {
     const modal = document.getElementById('login-modal');
@@ -385,7 +435,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const data = await response.json();
 
                 if (response.ok && data.success) {
-                    window.location.reload();
+                    window.location.href = data.redirect || '{{ url("/") }}';
                 } else {
                     errorText.textContent = data.message || 'Login failed. Please check credentials.';
                     errorBox.classList.remove('hidden');

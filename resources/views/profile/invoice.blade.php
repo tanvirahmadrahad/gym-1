@@ -13,20 +13,26 @@
     <!-- Font Awesome 6 Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
+    <!-- html2pdf.js for Single Page Vector PDF Download -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
     <!-- Styles / Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
         @page {
             size: A4 portrait;
-            margin: 10mm;
+            margin: 8mm;
         }
 
         @media print {
-            body {
+            html, body {
                 background-color: #0e121a !important;
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                height: 100% !important;
             }
             .no-print {
                 display: none !important;
@@ -34,10 +40,12 @@
             .invoice-page {
                 box-shadow: none !important;
                 border: 1px solid rgba(255,255,255,0.15) !important;
-                margin: 0 !important;
+                margin: 0 auto !important;
                 width: 100% !important;
                 max-width: 100% !important;
-                padding: 24px !important;
+                padding: 18px 22px !important;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
             }
         }
 
@@ -82,13 +90,19 @@
         </a>
 
         <div class="flex items-center gap-3">
-            <span class="text-xs text-gray-400 hidden sm:inline">
-                <i class="fa-solid fa-circle-info text-[#e2ff38] mr-1"></i> Enable "Background graphics" in print settings
-            </span>
+            <button 
+                type="button" 
+                id="btn-download-pdf"
+                onclick="downloadSinglePagePdf()" 
+                class="bg-rose-600 hover:bg-rose-500 text-white font-extrabold text-xs uppercase tracking-wider px-4 py-2.5 rounded-lg transition-all cursor-pointer flex items-center gap-2 shadow-lg shadow-rose-600/25"
+            >
+                <i class="fa-solid fa-file-pdf"></i>
+                <span id="btn-download-pdf-label">Download PDF (1 Page)</span>
+            </button>
             <button 
                 type="button" 
                 onclick="window.print()" 
-                class="bg-[#e2ff38] hover:bg-[#d0ee27] text-black font-extrabold text-xs uppercase tracking-wider px-5 py-2.5 rounded-lg transition-all cursor-pointer flex items-center gap-2 shadow-lg shadow-[#e2ff38]/20"
+                class="bg-[#e2ff38] hover:bg-[#d0ee27] text-black font-extrabold text-xs uppercase tracking-wider px-4 py-2.5 rounded-lg transition-all cursor-pointer flex items-center gap-2 shadow-lg shadow-[#e2ff38]/20"
             >
                 <i class="fa-solid fa-print"></i>
                 <span>Print Official Invoice</span>
@@ -294,5 +308,56 @@
         &copy; 2026 FITNES Training Club. All rights reserved.
     </div>
 
+    <script>
+    function downloadSinglePagePdf() {
+        const btn = document.getElementById('btn-download-pdf');
+        const btnLabel = document.getElementById('btn-download-pdf-label');
+        if (btn) {
+            btn.disabled = true;
+            btn.classList.add('opacity-75');
+            if (btnLabel) btnLabel.textContent = 'Generating PDF (1 Page)...';
+        }
+
+        const invoiceElement = document.querySelector('.invoice-page');
+        const opt = {
+            margin: [4, 4, 4, 4],
+            filename: 'FITNES-Receipt-{{ $invoice['id'] }}.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { 
+                scale: 2, 
+                useCORS: true, 
+                backgroundColor: '#131722',
+                scrollY: 0
+            },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+            pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+        };
+
+        html2pdf().set(opt).from(invoiceElement).save().then(() => {
+            if (btn) {
+                btn.disabled = false;
+                btn.classList.remove('opacity-75');
+                if (btnLabel) btnLabel.textContent = 'Download PDF (1 Page)';
+            }
+        }).catch(err => {
+            console.error('html2pdf generation error:', err);
+            window.print();
+            if (btn) {
+                btn.disabled = false;
+                btn.classList.remove('opacity-75');
+                if (btnLabel) btnLabel.textContent = 'Download PDF (1 Page)';
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('download') === '1') {
+            setTimeout(downloadSinglePagePdf, 500);
+        } else if (urlParams.get('print') === '1') {
+            setTimeout(() => window.print(), 400);
+        }
+    });
+    </script>
 </body>
 </html>

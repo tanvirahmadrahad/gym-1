@@ -345,8 +345,16 @@
                     <div class="mt-6 pt-4 border-t border-white/10 flex flex-col sm:flex-row gap-2">
                         <button 
                             type="button" 
+                            onclick="openRenewModal()"
+                            class="flex-1 bg-[#e2ff38] hover:bg-[#d0ee27] text-black font-extrabold text-xs uppercase tracking-wider py-2.5 px-3 rounded-lg transition-all text-center cursor-pointer shadow-md shadow-[#e2ff38]/20 flex items-center justify-center gap-1.5"
+                        >
+                            <i class="fa-solid fa-clock-rotate-left text-xs"></i>
+                            <span>Renew / Extend</span>
+                        </button>
+                        <button 
+                            type="button" 
                             onclick="openChangePlanModal()"
-                            class="flex-1 bg-[#e2ff38] hover:bg-[#d0ee27] text-black font-extrabold text-xs uppercase tracking-wider py-2.5 rounded-lg transition-all text-center cursor-pointer shadow-md shadow-[#e2ff38]/20 flex items-center justify-center gap-1.5"
+                            class="flex-1 bg-white/5 hover:bg-white/10 text-white hover:text-[#e2ff38] font-bold text-xs uppercase tracking-wider py-2.5 px-3 rounded-lg border border-white/10 transition-all text-center cursor-pointer flex items-center justify-center gap-1.5"
                         >
                             <i class="fa-solid fa-arrows-rotate text-xs"></i>
                             <span>Change Plan</span>
@@ -354,10 +362,10 @@
                         <button 
                             type="button" 
                             onclick="openFreezeModal()"
-                            class="flex-1 bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white font-bold text-xs uppercase tracking-wider py-2.5 rounded-lg border border-white/10 transition-all text-center cursor-pointer flex items-center justify-center gap-1.5"
+                            class="flex-1 bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white font-bold text-xs uppercase tracking-wider py-2.5 px-3 rounded-lg border border-white/10 transition-all text-center cursor-pointer flex items-center justify-center gap-1.5"
                         >
-                            <i class="fa-solid fa-pause text-xs text-[#e2ff38]"></i>
-                            <span>Freeze / Pause</span>
+                            <i class="fa-solid fa-pause text-xs text-amber-400"></i>
+                            <span>Freeze</span>
                         </button>
                     </div>
                 </div>
@@ -1257,6 +1265,15 @@
                                     <td class="py-3.5 px-5 text-right">
                                         <div class="flex items-center justify-end gap-2">
                                             <a 
+                                                href="{{ route('profile.invoice', ['id' => $invoice['id'], 'download' => 1]) }}" 
+                                                target="_blank"
+                                                class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-rose-500/10 hover:bg-rose-500 text-rose-400 hover:text-white text-[11px] font-bold border border-rose-500/30 transition-all cursor-pointer"
+                                                title="Download Single-Page Official PDF Receipt"
+                                            >
+                                                <i class="fa-solid fa-file-pdf"></i>
+                                                <span>PDF</span>
+                                            </a>
+                                            <a 
                                                 href="{{ route('profile.invoice', $invoice['id']) }}" 
                                                 target="_blank"
                                                 class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#e2ff38]/10 hover:bg-[#e2ff38] text-[#e2ff38] hover:text-black text-[11px] font-bold border border-[#e2ff38]/30 transition-all cursor-pointer"
@@ -1514,373 +1531,164 @@
     </div>
 </div>
 
-<!-- Modal 2: Change Plan & Payment Modal (Matching Image 2) -->
-<div id="change-plan-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden items-center justify-center p-3 sm:p-4">
-    <div class="bg-[#0e121a] border border-white/15 rounded-3xl max-w-5xl w-full p-6 sm:p-10 shadow-2xl relative max-h-[92vh] overflow-y-auto">
-        <button type="button" onclick="closeChangePlanModal()" class="absolute top-5 right-5 text-gray-400 hover:text-white text-lg cursor-pointer w-9 h-9 rounded-full bg-white/5 flex items-center justify-center">
+<!-- Change plan modal included in layouts.app -->
+
+<!-- Modal: Renew / Extend Gym Membership -->
+<div id="renew-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden items-center justify-center p-3 sm:p-4">
+    <div class="bg-[#0e121a] border border-white/15 rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl relative max-h-[92vh] overflow-y-auto">
+        <button type="button" onclick="closeRenewModal()" class="absolute top-5 right-5 text-gray-400 hover:text-white text-lg cursor-pointer w-9 h-9 rounded-full bg-white/5 flex items-center justify-center">
             <i class="fa-solid fa-xmark"></i>
         </button>
 
-        <!-- STEP 1: Plan Selection Screen -->
-        <div id="change-plan-step-select">
-            <div class="text-center max-w-xl mx-auto mb-8">
-                <span class="text-[10px] font-extrabold text-[#e2ff38] uppercase tracking-widest bg-[#e2ff38]/10 px-3 py-1 rounded-full border border-[#e2ff38]/30 inline-block mb-2">
-                    GYM MEMBERSHIP UPGRADE
-                </span>
-                <h3 class="font-heading text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
-                    Choose Your Athletic Plan
-                </h3>
-                <p class="text-xs sm:text-sm text-gray-400 mt-2">
-                    Select the ideal training package for your fitness objectives. Switch or cancel anytime.
-                </p>
+        <div class="mb-6">
+            <span class="text-[10px] font-extrabold text-[#e2ff38] uppercase tracking-widest bg-[#e2ff38]/10 px-3 py-1 rounded-full border border-[#e2ff38]/30 inline-block mb-2">
+                MEMBERSHIP PASS RENEWAL
+            </span>
+            <h3 class="font-heading text-2xl sm:text-3xl font-extrabold text-white">
+                Renew & Extend Membership
+            </h3>
+            <p class="text-xs text-gray-400 mt-1">
+                Extend your athlete pass seamlessly. Any remaining active days are retained and stacked automatically.
+            </p>
+        </div>
 
-                <!-- Monthly / Yearly Duration Toggle -->
-                <div class="flex items-center justify-center gap-3 mt-6">
-                    <span id="plan-modal-monthly-label" class="text-xs font-bold uppercase tracking-wider text-[#e2ff38] transition-colors">Monthly</span>
-                    <button 
-                        id="plan-modal-toggle" 
-                        type="button" 
-                        onclick="togglePlanModalDuration()"
-                        class="w-14 h-7 bg-[#1c2230] rounded-full p-1 relative transition-colors border border-white/15 focus:outline-none cursor-pointer"
-                        aria-label="Toggle duration"
-                    >
-                        <span id="plan-modal-toggle-ball" class="block w-5 h-5 rounded-full bg-[#e2ff38] shadow-md transition-transform translate-x-0"></span>
-                    </button>
-                    <span id="plan-modal-yearly-label" class="text-xs font-bold uppercase tracking-wider text-gray-400 transition-colors">
-                        Yearly <span class="text-[10px] bg-[#e2ff38]/20 text-[#e2ff38] px-2 py-0.5 rounded-full font-extrabold ml-1">SAVE 20%</span>
+        <form method="POST" action="{{ route('profile.renew') }}" class="space-y-5">
+            @csrf
+
+            <!-- Current Membership Summary -->
+            <div class="p-4 rounded-2xl bg-[#182030] border border-white/10 flex items-center justify-between text-xs">
+                <div>
+                    <span class="text-gray-400 text-[10px] uppercase font-bold block">Current Plan</span>
+                    <strong class="text-white text-sm">{{ $profile['package_name'] }}</strong>
+                    <div class="text-gray-400 text-[11px] mt-0.5">
+                        Current Expiry: <strong class="text-[#e2ff38]">{{ $profile['renewal_date'] }}</strong>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                        <i class="fa-solid fa-circle-check text-[9px]"></i>
+                        {{ $profile['membership_status'] }}
                     </span>
                 </div>
             </div>
 
-            <!-- 3 Pricing Cards Grid (Exact replica of Image 2) -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
-                <!-- Card 1: Basic Plan -->
-                <div class="bg-[#131722] border border-white/10 rounded-2xl p-6 sm:p-7 flex flex-col justify-between hover:border-white/20 transition-all">
-                    <div>
-                        <h4 class="font-heading text-2xl font-bold text-white mb-1">Basic Plan</h4>
-                        <p class="text-xs text-gray-400 mb-6">For beginners starting their fitness.</p>
-
-                        <div class="mb-6">
-                            <span class="font-heading text-4xl sm:text-5xl font-black text-white plan-modal-price" data-monthly="$29" data-yearly="$260">$29</span>
-                            <span class="text-xs text-gray-400 font-medium plan-modal-period">/month</span>
+            <!-- Choose Extension Duration -->
+            <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-gray-300 mb-2">
+                    Select Extension Duration
+                </label>
+                <div class="grid grid-cols-2 gap-2.5">
+                    <!-- 1 Month -->
+                    <label class="p-3 rounded-xl bg-[#182030] border border-white/10 hover:border-[#e2ff38] transition-colors cursor-pointer flex flex-col justify-between group">
+                        <div class="flex items-center justify-between mb-1">
+                            <input type="radio" name="duration_months" value="1" checked class="accent-[#e2ff38]" onchange="updateRenewCalculation(1)">
+                            <span class="text-[9px] font-bold uppercase tracking-wider text-gray-400">Monthly</span>
                         </div>
+                        <div class="font-heading text-lg font-bold text-white group-hover:text-[#e2ff38] transition-colors">+1 Month</div>
+                        <div class="text-[11px] text-gray-400 mt-0.5 renew-price-1">$53.00</div>
+                    </label>
 
-                        <button 
-                            type="button" 
-                            onclick="selectPlanToPay('Basic Plan', '$29', '$260')"
-                            class="w-full text-center py-3 px-4 rounded-xl border border-white/20 hover:border-[#e2ff38] hover:bg-[#e2ff38] text-white hover:text-black font-extrabold text-xs uppercase tracking-wider transition-all mb-6 cursor-pointer"
-                        >
-                            Select Basic Plan
-                        </button>
-
-                        <div class="space-y-3 pt-2">
-                            <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider block">What you get</span>
-                            <div class="flex items-center gap-2.5 text-xs text-gray-300">
-                                <i class="fa-solid fa-circle-check text-[#e2ff38]"></i>
-                                <span>Standard gym access at off-peak hours</span>
-                            </div>
-                            <div class="flex items-center gap-2.5 text-xs text-gray-300">
-                                <i class="fa-solid fa-circle-check text-[#e2ff38]"></i>
-                                <span>1 free fitness assessment session</span>
-                            </div>
-                            <div class="flex items-center gap-2.5 text-xs text-gray-300">
-                                <i class="fa-solid fa-circle-check text-[#e2ff38]"></i>
-                                <span>Locker & shower facilities</span>
-                            </div>
+                    <!-- 3 Months -->
+                    <label class="p-3 rounded-xl bg-[#182030] border border-white/10 hover:border-[#e2ff38] transition-colors cursor-pointer flex flex-col justify-between group">
+                        <div class="flex items-center justify-between mb-1">
+                            <input type="radio" name="duration_months" value="3" class="accent-[#e2ff38]" onchange="updateRenewCalculation(3)">
+                            <span class="text-[9px] font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded">Save 10%</span>
                         </div>
-                    </div>
-                </div>
+                        <div class="font-heading text-lg font-bold text-white group-hover:text-[#e2ff38] transition-colors">+3 Months</div>
+                        <div class="text-[11px] text-gray-400 mt-0.5 renew-price-3">$143.10</div>
+                    </label>
 
-                <!-- Card 2: Pro Plan (Highlighted Most Popular) -->
-                <div class="bg-[#131722] border-2 border-[#e2ff38] rounded-2xl p-6 sm:p-7 flex flex-col justify-between relative shadow-xl shadow-[#e2ff38]/10 transform md:-translate-y-2">
-                    <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#e2ff38] text-black font-black text-[10px] uppercase tracking-widest px-4 py-1 rounded-full shadow-md">
-                        MOST POPULAR
-                    </div>
-
-                    <div>
-                        <h4 class="font-heading text-2xl font-bold text-white mb-1">Pro Plan</h4>
-                        <p class="text-xs text-gray-400 mb-6">For regular gym-goers aiming to level up.</p>
-
-                        <div class="mb-6">
-                            <span class="font-heading text-4xl sm:text-5xl font-black text-[#e2ff38] plan-modal-price" data-monthly="$53" data-yearly="$480">$53</span>
-                            <span class="text-xs text-gray-400 font-medium plan-modal-period">/month</span>
+                    <!-- 6 Months -->
+                    <label class="p-3 rounded-xl bg-[#182030] border border-white/10 hover:border-[#e2ff38] transition-colors cursor-pointer flex flex-col justify-between group">
+                        <div class="flex items-center justify-between mb-1">
+                            <input type="radio" name="duration_months" value="6" class="accent-[#e2ff38]" onchange="updateRenewCalculation(6)">
+                            <span class="text-[9px] font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded">Save 15%</span>
                         </div>
+                        <div class="font-heading text-lg font-bold text-white group-hover:text-[#e2ff38] transition-colors">+6 Months</div>
+                        <div class="text-[11px] text-gray-400 mt-0.5 renew-price-6">$270.30</div>
+                    </label>
 
-                        <button 
-                            type="button" 
-                            onclick="selectPlanToPay('Pro Plan', '$53', '$480')"
-                            class="w-full text-center py-3 px-4 rounded-xl bg-[#e2ff38] hover:bg-[#d0ee27] text-black font-extrabold text-xs uppercase tracking-wider transition-all mb-6 cursor-pointer shadow-lg shadow-[#e2ff38]/20"
-                        >
-                            Select Pro Plan
-                        </button>
-
-                        <div class="space-y-3 pt-2">
-                            <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider block">What you get</span>
-                            <div class="flex items-center gap-2.5 text-xs text-gray-300">
-                                <i class="fa-solid fa-circle-check text-[#e2ff38]"></i>
-                                <span>Unlimited 24/7 gym access</span>
-                            </div>
-                            <div class="flex items-center gap-2.5 text-xs text-gray-300">
-                                <i class="fa-solid fa-circle-check text-[#e2ff38]"></i>
-                                <span>Access to all HIIT & group classes</span>
-                            </div>
-                            <div class="flex items-center gap-2.5 text-xs text-gray-300">
-                                <i class="fa-solid fa-circle-check text-[#e2ff38]"></i>
-                                <span>Personalized nutrition guide</span>
-                            </div>
-                            <div class="flex items-center gap-2.5 text-xs text-gray-300">
-                                <i class="fa-solid fa-circle-check text-[#e2ff38]"></i>
-                                <span>Free monthly guest pass</span>
-                            </div>
+                    <!-- 12 Months -->
+                    <label class="p-3 rounded-xl bg-[#182030] border-2 border-[#e2ff38]/50 hover:border-[#e2ff38] transition-colors cursor-pointer flex flex-col justify-between group bg-[#e2ff38]/5">
+                        <div class="flex items-center justify-between mb-1">
+                            <input type="radio" name="duration_months" value="12" class="accent-[#e2ff38]" onchange="updateRenewCalculation(12)">
+                            <span class="text-[9px] font-black uppercase tracking-wider text-black bg-[#e2ff38] px-1.5 py-0.5 rounded">Best Value 23%</span>
                         </div>
-                    </div>
-                </div>
-
-                <!-- Card 3: Elite Membership -->
-                <div class="bg-[#131722] border border-white/10 rounded-2xl p-6 sm:p-7 flex flex-col justify-between hover:border-white/20 transition-all">
-                    <div>
-                        <h4 class="font-heading text-2xl font-bold text-white mb-1">Elite Membership</h4>
-                        <p class="text-xs text-gray-400 mb-6">All-in access for serious transformations.</p>
-
-                        <div class="mb-6">
-                            <span class="font-heading text-4xl sm:text-5xl font-black text-white plan-modal-price" data-monthly="$99" data-yearly="$890">$99</span>
-                            <span class="text-xs text-gray-400 font-medium plan-modal-period">/month</span>
-                        </div>
-
-                        <button 
-                            type="button" 
-                            onclick="selectPlanToPay('Elite Membership', '$99', '$890')"
-                            class="w-full text-center py-3 px-4 rounded-xl border border-white/20 hover:border-[#e2ff38] hover:bg-[#e2ff38] text-white hover:text-black font-extrabold text-xs uppercase tracking-wider transition-all mb-6 cursor-pointer"
-                        >
-                            Select Elite Membership
-                        </button>
-
-                        <div class="space-y-3 pt-2">
-                            <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider block">What you get</span>
-                            <div class="flex items-center gap-2.5 text-xs text-gray-300">
-                                <i class="fa-solid fa-circle-check text-[#e2ff38]"></i>
-                                <span>Everything in Pro Plan</span>
-                            </div>
-                            <div class="flex items-center gap-2.5 text-xs text-gray-300">
-                                <i class="fa-solid fa-circle-check text-[#e2ff38]"></i>
-                                <span>1-on-1 dedicated coach sessions</span>
-                            </div>
-                            <div class="flex items-center gap-2.5 text-xs text-gray-300">
-                                <i class="fa-solid fa-circle-check text-[#e2ff38]"></i>
-                                <span>Sauna & hydrotherapy lounge access</span>
-                            </div>
-                            <div class="flex items-center gap-2.5 text-xs text-gray-300">
-                                <i class="fa-solid fa-circle-check text-[#e2ff38]"></i>
-                                <span>Custom biomarker & body fat tracking</span>
-                            </div>
-                        </div>
-                    </div>
+                        <div class="font-heading text-lg font-bold text-[#e2ff38]">+12 Months (1 Year)</div>
+                        <div class="text-[11px] text-gray-300 mt-0.5 renew-price-12">$490.00</div>
+                    </label>
                 </div>
             </div>
-        </div>
 
-        <!-- STEP 2: Checkout & Payment Screen ("than select kore pay korte bolbe") -->
-        <div id="change-plan-step-pay" class="hidden">
-            <div class="max-w-xl mx-auto">
-                <div class="flex items-center justify-between pb-4 border-b border-white/10 mb-6">
-                    <button type="button" onclick="backToPlanSelection()" class="text-xs font-bold text-gray-400 hover:text-[#e2ff38] flex items-center gap-1.5 cursor-pointer">
-                        <i class="fa-solid fa-arrow-left"></i>
-                        <span>Change Selected Plan</span>
-                    </button>
-                    <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-widest bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20">
-                        Secure Checkout
-                    </span>
+            <!-- Calculated Preview Card -->
+            <div class="p-4 rounded-xl bg-[#182030]/80 border border-white/10 space-y-2 text-xs">
+                <div class="flex justify-between items-center text-gray-400">
+                    <span>New Expiration Date:</span>
+                    <strong id="renew-preview-date" class="text-white text-sm">Dec 14, 2026</strong>
                 </div>
-
-                <h3 class="font-heading text-2xl font-black text-white">Review & Complete Payment</h3>
-                <p class="text-xs text-gray-400 mt-1 mb-6">Your new plan privileges and turnstile access will activate instantly upon payment.</p>
-
-                <!-- Plan Summary Card -->
-                <div class="bg-[#182030] p-5 rounded-2xl border border-white/10 mb-6 space-y-3">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider block">Selected Package</span>
-                            <span id="checkout-plan-name" class="font-heading text-xl font-bold text-white">Pro Plan</span>
-                            <span id="checkout-billing-cycle-label" class="text-xs text-[#e2ff38] block mt-0.5">Monthly Billing</span>
-                        </div>
-                        <div class="text-right">
-                            <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider block">Due Now</span>
-                            <span id="checkout-plan-price" class="font-heading text-3xl font-black text-[#e2ff38]">$53.00</span>
-                        </div>
-                    </div>
+                <div class="flex justify-between items-center text-gray-400">
+                    <span>Duration Added:</span>
+                    <span id="renew-preview-duration" class="font-bold text-[#e2ff38]">+1 Month (+30 Days)</span>
                 </div>
-
-                <!-- Payment Form -->
-                <form id="change-plan-form" method="POST" action="{{ route('profile.change-plan') }}" class="space-y-4">
-                    @csrf
-                    <input type="hidden" name="plan_name" id="form-plan-name" value="Pro Plan">
-                    <input type="hidden" name="billing_cycle" id="form-billing-cycle" value="monthly">
-                    <input type="hidden" name="plan_price" id="form-plan-price" value="$53.00">
-                    <input type="hidden" name="trx_id" id="form-trx-id" value="">
-
-                    <!-- Payment Method Selector -->
-                    <div>
-                        <label class="block text-xs font-semibold uppercase tracking-wider text-gray-300 mb-2">
-                            Select Payment Method
-                        </label>
-                        <div class="space-y-2">
-                            <!-- Option 1: bKash (Featured BD Mobile Wallet) -->
-                            <label class="flex items-center justify-between p-3.5 rounded-xl bg-[#182030] border border-[#e2136e]/40 cursor-pointer hover:border-[#e2136e] transition-colors group">
-                                <div class="flex items-center gap-3">
-                                    <input type="radio" name="payment_method" value="bKash Mobile Banking" checked class="accent-[#e2136e]" onchange="updatePayButtonLabel('bKash')">
-                                    <div class="flex items-center gap-2">
-                                        <div class="w-6 h-6 rounded bg-[#e2136e] flex items-center justify-center text-white text-[10px] font-black">
-                                            bK
-                                        </div>
-                                        <span class="text-xs font-bold text-white group-hover:text-[#e2136e] transition-colors">bKash Instant Gateway</span>
-                                    </div>
-                                </div>
-                                <span class="text-[10px] font-extrabold text-[#e2136e] bg-[#e2136e]/10 px-2 py-0.5 rounded border border-[#e2136e]/30">Instant TrxID</span>
-                            </label>
-
-                            <!-- Option 2: Nagad Mobile Wallet -->
-                            <label class="flex items-center justify-between p-3.5 rounded-xl bg-[#182030] border border-[#f7941d]/30 cursor-pointer hover:border-[#f7941d] transition-colors group">
-                                <div class="flex items-center gap-3">
-                                    <input type="radio" name="payment_method" value="Nagad Mobile Banking" class="accent-[#f7941d]" onchange="updatePayButtonLabel('Nagad')">
-                                    <div class="flex items-center gap-2">
-                                        <div class="w-6 h-6 rounded bg-[#f7941d] flex items-center justify-center text-white text-[10px] font-black">
-                                            ন
-                                        </div>
-                                        <span class="text-xs font-bold text-white group-hover:text-[#f7941d] transition-colors">Nagad Instant Gateway</span>
-                                    </div>
-                                </div>
-                                <span class="text-[10px] font-bold text-[#f7941d] bg-[#f7941d]/10 px-2 py-0.5 rounded border border-[#f7941d]/30">Instant</span>
-                            </label>
-
-                            <!-- Option 3: Saved Visa Card -->
-                            <label class="flex items-center justify-between p-3.5 rounded-xl bg-[#182030] border border-white/10 cursor-pointer hover:border-[#e2ff38] transition-colors group">
-                                <div class="flex items-center gap-3">
-                                    <input type="radio" name="payment_method" value="Visa •••• 4242" class="accent-[#e2ff38]" onchange="updatePayButtonLabel('Visa')">
-                                    <div class="flex items-center gap-2">
-                                        <i class="fa-brands fa-cc-visa text-blue-400 text-lg"></i>
-                                        <span class="text-xs font-bold text-white">Saved Visa ending in •••• 4242</span>
-                                    </div>
-                                </div>
-                                <span class="text-[10px] text-gray-400">Card</span>
-                            </label>
-
-                            <!-- Option 4: Counter Payment -->
-                            <label class="flex items-center justify-between p-3.5 rounded-xl bg-[#182030] border border-white/10 cursor-pointer hover:border-white/20 transition-colors">
-                                <div class="flex items-center gap-3">
-                                    <input type="radio" name="payment_method" value="Cash at Front Reception Desk" class="accent-[#e2ff38]" onchange="updatePayButtonLabel('Counter')">
-                                    <div class="flex items-center gap-2">
-                                        <i class="fa-solid fa-money-bill-wave text-emerald-400 text-sm"></i>
-                                        <span class="text-xs font-semibold text-white">Pay Cash / Card at Gym Counter</span>
-                                    </div>
-                                </div>
-                                <span class="text-[10px] text-gray-400">On Next Visit</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- Security note -->
-                    <div class="p-3 rounded-xl bg-white/5 border border-white/10 text-[11px] text-gray-400 flex items-center gap-2.5">
-                        <i class="fa-solid fa-shield-halved text-[#e2ff38]"></i>
-                        <span>256-bit encrypted SSL checkout. Instant TrxID and tax invoice generated on confirmation.</span>
-                    </div>
-
-                    <!-- Submit Button -->
-                    <div class="pt-4 flex items-center justify-end gap-3">
-                        <button 
-                            type="button" 
-                            onclick="backToPlanSelection()" 
-                            class="bg-white/5 hover:bg-white/10 text-gray-300 text-xs font-bold uppercase tracking-wider px-4 py-3 rounded-xl border border-white/10 cursor-pointer"
-                        >
-                            Cancel
-                        </button>
-                        <button 
-                            type="button" 
-                            onclick="handlePlanPaymentSubmission()"
-                            id="plan-submit-pay-btn"
-                            class="flex-1 bg-[#e2136e] hover:bg-[#c90f5f] text-white font-extrabold text-xs uppercase tracking-wider py-3 px-6 rounded-xl transition-all cursor-pointer shadow-lg shadow-[#e2136e]/20 flex items-center justify-center gap-2"
-                        >
-                            <i class="fa-solid fa-mobile-screen text-xs"></i>
-                            <span id="plan-submit-pay-text">Pay via bKash Gateway</span>
-                        </button>
-                    </div>
-                </form>
-
-                <!-- Step 2.5: Interactive bKash / Nagad Gateway Overlay -->
-                <div id="change-plan-gateway-screen" class="hidden mt-6 p-6 rounded-2xl bg-[#0e121a] border-2 border-[#e2136e] shadow-2xl relative">
-                    <div class="flex items-center justify-between pb-4 border-b border-white/10 mb-4">
-                        <div class="flex items-center gap-2">
-                            <span id="gateway-logo-badge" class="px-2.5 py-1 rounded bg-[#e2136e] text-white font-black text-xs">bKash</span>
-                            <span class="text-xs font-bold text-white">Merchant Checkout</span>
-                        </div>
-                        <span id="gateway-due-amount" class="font-heading text-lg font-black text-[#e2ff38]">$53.00 (৳5,830)</span>
-                    </div>
-
-                    <div class="space-y-4">
-                        <div id="gateway-step-phone">
-                            <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">
-                                Enter <span id="gateway-brand-name">bKash</span> Account Number
-                            </label>
-                            <input 
-                                type="text" 
-                                id="gateway-account-input" 
-                                value="01712-345678" 
-                                placeholder="01XXXXXXXXX"
-                                class="w-full bg-[#182030] border border-white/20 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-[#e2136e]"
-                            >
-                            <button 
-                                type="button" 
-                                onclick="gatewayProceedToOtp()" 
-                                class="w-full mt-3 py-2.5 rounded-xl bg-[#e2136e] hover:bg-[#c90f5f] text-white font-extrabold text-xs uppercase tracking-wider transition-all cursor-pointer"
-                            >
-                                Send Verification Code (OTP)
-                            </button>
-                        </div>
-
-                        <div id="gateway-step-otp" class="hidden">
-                            <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">
-                                Enter 6-Digit OTP (Sent to mobile)
-                            </label>
-                            <input 
-                                type="text" 
-                                id="gateway-otp-input" 
-                                value="749210" 
-                                placeholder="123456"
-                                class="w-full bg-[#182030] border border-white/20 rounded-xl px-4 py-2.5 text-xs text-white text-center font-mono tracking-[0.5em] focus:outline-none focus:border-[#e2136e]"
-                            >
-                            <button 
-                                type="button" 
-                                onclick="gatewayProceedToPin()" 
-                                class="w-full mt-3 py-2.5 rounded-xl bg-[#e2136e] hover:bg-[#c90f5f] text-white font-extrabold text-xs uppercase tracking-wider transition-all cursor-pointer"
-                            >
-                                Verify OTP
-                            </button>
-                        </div>
-
-                        <div id="gateway-step-pin" class="hidden">
-                            <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">
-                                Enter 4-Digit Account PIN
-                            </label>
-                            <input 
-                                type="password" 
-                                id="gateway-pin-input" 
-                                value="1234" 
-                                maxlength="5"
-                                placeholder="••••"
-                                class="w-full bg-[#182030] border border-white/20 rounded-xl px-4 py-2.5 text-xs text-white text-center font-mono tracking-[0.5em] focus:outline-none focus:border-[#e2136e]"
-                            >
-                            <button 
-                                type="button" 
-                                onclick="gatewayConfirmPayment()" 
-                                class="w-full mt-3 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-black font-extrabold text-xs uppercase tracking-wider transition-all cursor-pointer shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-2"
-                            >
-                                <i class="fa-solid fa-lock text-xs"></i>
-                                <span>Confirm Payment & Activate Plan</span>
-                            </button>
-                        </div>
-                    </div>
+                <div class="flex justify-between items-center pt-2 border-t border-white/10 text-white font-bold">
+                    <span>Total Payable:</span>
+                    <span id="renew-preview-price" class="font-heading text-xl text-[#e2ff38] font-black">$53.00</span>
                 </div>
             </div>
-        </div>
+
+            <!-- Payment Method Selector -->
+            <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-gray-300 mb-2">
+                    Payment Method
+                </label>
+                <div class="space-y-2">
+                    <label class="flex items-center justify-between p-3 rounded-xl bg-[#182030] border border-white/10 hover:border-[#e2ff38] transition-colors cursor-pointer">
+                        <div class="flex items-center gap-2.5 text-xs text-white">
+                            <input type="radio" name="payment_method" value="Visa •••• 4242" checked class="accent-[#e2ff38]">
+                            <i class="fa-brands fa-cc-visa text-blue-400 text-base"></i>
+                            <span>Visa Card (ending •••• 4242)</span>
+                        </div>
+                        <span class="text-[10px] text-gray-400 font-mono">Instant Cleared</span>
+                    </label>
+
+                    <label class="flex items-center justify-between p-3 rounded-xl bg-[#182030] border border-white/10 hover:border-[#e2136e] transition-colors cursor-pointer">
+                        <div class="flex items-center gap-2.5 text-xs text-white">
+                            <input type="radio" name="payment_method" value="bKash Mobile Banking" class="accent-[#e2136e]">
+                            <span class="w-5 h-5 rounded bg-[#e2136e] text-white flex items-center justify-center font-black text-[9px]">bK</span>
+                            <span>bKash Mobile Banking</span>
+                        </div>
+                        <span class="text-[10px] text-[#e2136e] font-bold">Instant Gateway</span>
+                    </label>
+
+                    <label class="flex items-center justify-between p-3 rounded-xl bg-[#182030] border border-white/10 hover:border-[#e2ff38] transition-colors cursor-pointer">
+                        <div class="flex items-center gap-2.5 text-xs text-white">
+                            <input type="radio" name="payment_method" value="Front Desk Cash" class="accent-[#e2ff38]">
+                            <i class="fa-solid fa-money-bill-wave text-emerald-400"></i>
+                            <span>Pay Cash at Gym Reception</span>
+                        </div>
+                        <span class="text-[10px] text-gray-400">Front Desk</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex items-center gap-3 pt-2">
+                <button 
+                    type="button" 
+                    onclick="closeRenewModal()"
+                    class="flex-1 py-3 px-4 rounded-xl bg-white/5 hover:bg-white/10 text-gray-300 font-bold text-xs uppercase tracking-wider border border-white/10 cursor-pointer"
+                >
+                    Cancel
+                </button>
+                <button 
+                    type="submit" 
+                    class="flex-1 py-3 px-4 rounded-xl bg-[#e2ff38] hover:bg-[#d0ee27] text-black font-extrabold text-xs uppercase tracking-wider cursor-pointer shadow-lg shadow-[#e2ff38]/20 flex items-center justify-center gap-2"
+                >
+                    <i class="fa-solid fa-bolt"></i>
+                    <span>Confirm & Renew</span>
+                </button>
+            </div>
+        </form>
     </div>
 </div>
 
@@ -2092,13 +1900,23 @@
                 Close
             </button>
             <a 
+                id="receipt-pdf-download-link"
+                href="#" 
+                target="_blank"
+                class="bg-rose-600 hover:bg-rose-500 text-white font-extrabold text-xs uppercase tracking-wider px-4 py-2.5 rounded-lg transition-all cursor-pointer flex items-center gap-1.5 shadow-md shadow-rose-600/25"
+                title="Download Single-Page Official PDF Receipt"
+            >
+                <i class="fa-solid fa-file-pdf"></i>
+                <span>Download PDF (1 Page)</span>
+            </a>
+            <a 
                 id="receipt-tax-invoice-link"
                 href="#" 
                 target="_blank"
-                class="bg-[#e2ff38] hover:bg-[#d0ee27] text-black font-extrabold text-xs uppercase tracking-wider px-5 py-2.5 rounded-lg transition-all cursor-pointer flex items-center gap-1.5 shadow-md shadow-[#e2ff38]/20"
+                class="bg-[#e2ff38] hover:bg-[#d0ee27] text-black font-extrabold text-xs uppercase tracking-wider px-4 py-2.5 rounded-lg transition-all cursor-pointer flex items-center gap-1.5 shadow-md shadow-[#e2ff38]/20"
             >
                 <i class="fa-solid fa-print"></i>
-                <span>Open Full Tax Invoice</span>
+                <span>Open Tax Invoice</span>
             </a>
         </div>
     </div>
@@ -2458,143 +2276,55 @@ function closeEditProfileModal() {
     modal.classList.remove('flex');
 }
 
-// Change Plan Modal
-let isModalYearly = false;
-let currentPaymentMethod = 'bKash';
-
-function openChangePlanModal() {
-    const modal = document.getElementById('change-plan-modal');
+// Renew / Extend Modal
+function openRenewModal() {
+    const modal = document.getElementById('renew-modal');
     if (!modal) return;
-    document.getElementById('change-plan-step-select').classList.remove('hidden');
-    document.getElementById('change-plan-step-pay').classList.add('hidden');
-    const gatewayScreen = document.getElementById('change-plan-gateway-screen');
-    if (gatewayScreen) gatewayScreen.classList.add('hidden');
+    updateRenewCalculation(1);
     modal.classList.remove('hidden');
     modal.classList.add('flex');
 }
 
-function closeChangePlanModal() {
-    const modal = document.getElementById('change-plan-modal');
+function closeRenewModal() {
+    const modal = document.getElementById('renew-modal');
     if (!modal) return;
     modal.classList.add('hidden');
     modal.classList.remove('flex');
 }
 
-function togglePlanModalDuration() {
-    isModalYearly = !isModalYearly;
-    const toggleBall = document.getElementById('plan-modal-toggle-ball');
-    const labelMonthly = document.getElementById('plan-modal-monthly-label');
-    const labelYearly = document.getElementById('plan-modal-yearly-label');
-    const prices = document.querySelectorAll('.plan-modal-price');
-    const periods = document.querySelectorAll('.plan-modal-period');
+function updateRenewCalculation(months) {
+    const planName = "{{ strtolower($profile['package_name']) }}";
+    let base = 53.00;
+    if (planName.includes('basic')) base = 29.00;
+    else if (planName.includes('elite')) base = 99.00;
 
-    if (isModalYearly) {
-        toggleBall.classList.remove('translate-x-0');
-        toggleBall.classList.add('translate-x-7');
-        labelMonthly.classList.replace('text-[#e2ff38]', 'text-gray-400');
-        labelYearly.classList.replace('text-gray-400', 'text-[#e2ff38]');
+    let discount = 0;
+    if (months === 3) discount = 0.10;
+    else if (months === 6) discount = 0.15;
+    else if (months === 12) discount = 0.23;
 
-        prices.forEach(el => el.textContent = el.getAttribute('data-yearly'));
-        periods.forEach(el => el.textContent = '/year');
-    } else {
-        toggleBall.classList.remove('translate-x-7');
-        toggleBall.classList.add('translate-x-0');
-        labelMonthly.classList.replace('text-gray-400', 'text-[#e2ff38]');
-        labelYearly.classList.replace('text-[#e2ff38]', 'text-gray-400');
+    const total = (base * months) * (1 - discount);
+    const priceFormatted = '$' + total.toFixed(2);
 
-        prices.forEach(el => el.textContent = el.getAttribute('data-monthly'));
-        periods.forEach(el => el.textContent = '/month');
-    }
-}
+    const priceEl = document.getElementById('renew-preview-price');
+    const durEl = document.getElementById('renew-preview-duration');
+    const dateEl = document.getElementById('renew-preview-date');
 
-function selectPlanToPay(planName, monthlyPrice, yearlyPrice) {
-    const price = isModalYearly ? yearlyPrice : monthlyPrice;
-    const cycle = isModalYearly ? 'yearly' : 'monthly';
-    const cycleLabel = isModalYearly ? 'Yearly Billing (Save 20%)' : 'Monthly Auto-Renewal';
+    if (priceEl) priceEl.textContent = priceFormatted;
+    if (durEl) durEl.textContent = `+${months} ${months === 1 ? 'Month (+30 Days)' : 'Months'}`;
 
-    document.getElementById('checkout-plan-name').textContent = planName;
-    document.getElementById('checkout-plan-price').textContent = price;
-    document.getElementById('checkout-billing-cycle-label').textContent = cycleLabel;
-
-    document.getElementById('form-plan-name').value = planName;
-    document.getElementById('form-billing-cycle').value = cycle;
-    document.getElementById('form-plan-price').value = price;
-
-    document.getElementById('change-plan-step-select').classList.add('hidden');
-    document.getElementById('change-plan-step-pay').classList.remove('hidden');
-}
-
-function backToPlanSelection() {
-    document.getElementById('change-plan-step-pay').classList.add('hidden');
-    document.getElementById('change-plan-step-select').classList.remove('hidden');
-    const gatewayScreen = document.getElementById('change-plan-gateway-screen');
-    if (gatewayScreen) gatewayScreen.classList.add('hidden');
-}
-
-function updatePayButtonLabel(method) {
-    currentPaymentMethod = method;
-    const btnText = document.getElementById('plan-submit-pay-text');
-    const btn = document.getElementById('plan-submit-pay-btn');
-    if (method === 'bKash') {
-        btnText.textContent = 'Pay via bKash Gateway';
-        btn.className = 'flex-1 bg-[#e2136e] hover:bg-[#c90f5f] text-white font-extrabold text-xs uppercase tracking-wider py-3 px-6 rounded-xl transition-all cursor-pointer shadow-lg shadow-[#e2136e]/20 flex items-center justify-center gap-2';
-    } else if (method === 'Nagad') {
-        btnText.textContent = 'Pay via Nagad Gateway';
-        btn.className = 'flex-1 bg-[#f7941d] hover:bg-[#df7e0c] text-white font-extrabold text-xs uppercase tracking-wider py-3 px-6 rounded-xl transition-all cursor-pointer shadow-lg shadow-[#f7941d]/20 flex items-center justify-center gap-2';
-    } else {
-        btnText.textContent = 'Confirm & Pay Now';
-        btn.className = 'flex-1 bg-[#e2ff38] hover:bg-[#d0ee27] text-black font-extrabold text-xs uppercase tracking-wider py-3 px-6 rounded-xl transition-all cursor-pointer shadow-lg shadow-[#e2ff38]/20 flex items-center justify-center gap-2';
-    }
-}
-
-function handlePlanPaymentSubmission() {
-    if (currentPaymentMethod === 'bKash' || currentPaymentMethod === 'Nagad') {
-        const screen = document.getElementById('change-plan-gateway-screen');
-        const brandBadge = document.getElementById('gateway-logo-badge');
-        const brandName = document.getElementById('gateway-brand-name');
-        const dueAmount = document.getElementById('gateway-due-amount');
-        const priceText = document.getElementById('checkout-plan-price').textContent;
-
-        dueAmount.textContent = priceText;
-        if (currentPaymentMethod === 'bKash') {
-            brandBadge.textContent = 'bKash';
-            brandBadge.className = 'px-2.5 py-1 rounded bg-[#e2136e] text-white font-black text-xs';
-            brandName.textContent = 'bKash';
-            screen.style.borderColor = '#e2136e';
-        } else {
-            brandBadge.textContent = 'Nagad';
-            brandBadge.className = 'px-2.5 py-1 rounded bg-[#f7941d] text-white font-black text-xs';
-            brandName.textContent = 'Nagad';
-            screen.style.borderColor = '#f7941d';
+    const currentExpiryStr = "{{ $profile['renewal_date'] }}";
+    let baseDate = new Date();
+    if (currentExpiryStr) {
+        const parsed = new Date(currentExpiryStr);
+        if (!isNaN(parsed) && parsed > baseDate) {
+            baseDate = parsed;
         }
-
-        document.getElementById('gateway-step-phone').classList.remove('hidden');
-        document.getElementById('gateway-step-otp').classList.add('hidden');
-        document.getElementById('gateway-step-pin').classList.add('hidden');
-        screen.classList.remove('hidden');
-        screen.scrollIntoView({ behavior: 'smooth' });
-    } else {
-        document.getElementById('change-plan-form').submit();
     }
-}
-
-function gatewayProceedToOtp() {
-    const account = document.getElementById('gateway-account-input').value;
-    if (!account) return;
-    document.getElementById('gateway-step-phone').classList.add('hidden');
-    document.getElementById('gateway-step-otp').classList.remove('hidden');
-}
-
-function gatewayProceedToPin() {
-    document.getElementById('gateway-step-otp').classList.add('hidden');
-    document.getElementById('gateway-step-pin').classList.remove('hidden');
-}
-
-function gatewayConfirmPayment() {
-    const prefix = currentPaymentMethod === 'bKash' ? 'BK9X' : 'NG88';
-    const randomTrx = prefix + Math.floor(100000 + Math.random() * 900000);
-    document.getElementById('form-trx-id').value = randomTrx;
-    document.getElementById('change-plan-form').submit();
+    const targetDate = new Date(baseDate);
+    targetDate.setMonth(targetDate.getMonth() + months);
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    if (dateEl) dateEl.textContent = targetDate.toLocaleDateString('en-US', options);
 }
 
 // Freeze Modal
@@ -2625,6 +2355,11 @@ function openReceiptModal(id, date, plan, total, subtotal, tax, method) {
     const link = document.getElementById('receipt-tax-invoice-link');
     if (link) {
         link.href = '/profile/invoice/' + id;
+    }
+
+    const pdfLink = document.getElementById('receipt-pdf-download-link');
+    if (pdfLink) {
+        pdfLink.href = '/profile/invoice/' + encodeURIComponent(id) + '?download=1';
     }
 
     const modal = document.getElementById('receipt-modal');
