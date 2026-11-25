@@ -1,6 +1,11 @@
 @extends('layouts.app', ['title' => 'Member Login - FITNES'])
 
 @section('content')
+@auth
+<script>
+    window.location.replace("{{ route('home') }}");
+</script>
+@endauth
 <div class="min-h-[80vh] flex items-center justify-center py-16 px-4 sm:px-6 bg-[#0a0c10] relative overflow-hidden">
     <!-- Ambient Glow Effect -->
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-[#e2ff38]/5 rounded-full blur-[120px] pointer-events-none"></div>

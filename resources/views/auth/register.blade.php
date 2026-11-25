@@ -1,6 +1,11 @@
 @extends('layouts.app', ['title' => 'Member Registration - FITNES'])
 
 @section('content')
+@auth
+<script>
+    window.location.replace("{{ route('home') }}");
+</script>
+@endauth
 <div class="min-h-[85vh] flex items-center justify-center py-16 px-4 sm:px-6 bg-[#0a0c10] relative overflow-hidden">
     <!-- Ambient Glow Effect -->
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-[#00d2ff]/5 rounded-full blur-[120px] pointer-events-none"></div>
@@ -40,6 +45,21 @@
         <!-- Registration Form -->
         <form method="POST" action="{{ route('register.post') }}" class="space-y-4">
             @csrf
+
+            @if (request('plan'))
+                <div class="p-3.5 rounded-xl bg-[#e2ff38]/10 border border-[#e2ff38]/30 flex items-center justify-between text-xs">
+                    <div>
+                        <span class="text-[10px] uppercase font-bold text-gray-400 block">Selected Gym Package</span>
+                        <strong class="text-white text-sm">{{ request('plan') }}</strong>
+                        <span class="text-[#e2ff38] font-semibold text-[11px] block capitalize">({{ request('cycle', 'monthly') }} Billing)</span>
+                    </div>
+                    <input type="hidden" name="package_name" value="{{ request('plan') }}">
+                    <input type="hidden" name="billing_cycle" value="{{ request('cycle', 'monthly') }}">
+                    <span class="text-[10px] bg-[#e2ff38] text-black font-black px-2.5 py-1 rounded-full uppercase tracking-wider">
+                        Selected
+                    </span>
+                </div>
+            @endif
 
             <!-- Full Name -->
             <div>

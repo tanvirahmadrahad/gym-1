@@ -309,7 +309,98 @@ class ProfileController extends Controller
             'renewal_date' => now()->addMonths($isYearly ? 12 : 1),
         ]);
 
+        $cleanPrice = preg_replace('/[^0-9.]/', '', $validated['plan_price']);
+        $totalFloat = (float) $cleanPrice > 0 ? (float) $cleanPrice : ($isYearly ? 490.00 : 53.00);
+        $subtotal = round($totalFloat * 0.94, 2);
+        $tax = round($totalFloat - $subtotal, 2);
+
+        $invoiceId = 'INV-'.now()->format('Y').'-'.rand(1000, 9999);
+        $newInvoice = [
+            'id' => $invoiceId,
+            'date' => now()->format('M d, Y'),
+            'plan' => $user->package_name,
+            'amount' => '$'.number_format($totalFloat, 2),
+            'method' => $method,
+            'status' => 'Paid',
+            'billing_period' => now()->format('M d, Y').' - '.now()->addMonths($isYearly ? 12 : 1)->format('M d, Y'),
+            'subtotal' => '$'.number_format($subtotal, 2),
+            'tax' => '$'.number_format($tax, 2),
+            'auth_code' => 'AUTH-'.rand(100000, 999999),
+            'description' => 'Athletic membership tier activation: '.$user->package_name,
+        ];
+        $customInvoices = session()->get('user_custom_invoices', []);
+        session()->put('user_custom_invoices', [$invoiceId => $newInvoice] + $customInvoices);
+
         return redirect()->route('profile')->with('success', 'Plan upgraded to '.$user->package_name.'! Paid '.$validated['plan_price'].' via '.$method.' [TrxID: '.$trxId.']. Membership is fully active.');
+    }
+
+    /**
+     * Renew or extend athlete gym membership with chosen duration.
+     */
+    public function renew(Request $request): RedirectResponse
+    {
+        $validated = $request->validate([
+            'duration_months' => ['required', 'integer', 'in:1,3,6,12'],
+            'payment_method' => ['nullable', 'string', 'max:50'],
+            'trx_id' => ['nullable', 'string', 'max:50'],
+        ]);
+
+        $user = $request->user();
+        $months = (int) $validated['duration_months'];
+        $method = $validated['payment_method'] ?? 'Visa •••• 4242';
+        $trxId = $validated['trx_id'] ?? (strtoupper(substr(str_replace(' ', '', $method), 0, 3)).'-'.rand(100000, 999999));
+
+        $planName = $user->package_name ?? 'Pro Athlete Membership';
+        $basePriceMonthly = 53.00;
+        if (str_contains(strtolower($planName), 'basic')) {
+            $basePriceMonthly = 29.00;
+        } elseif (str_contains(strtolower($planName), 'elite')) {
+            $basePriceMonthly = 99.00;
+        }
+
+        $discountRate = match ($months) {
+            1 => 0.0,
+            3 => 0.10,
+            6 => 0.15,
+            12 => 0.23,
+            default => 0.0,
+        };
+
+        $rawTotal = $basePriceMonthly * $months;
+        $discountAmount = $rawTotal * $discountRate;
+        $finalAmount = round($rawTotal - $discountAmount, 2);
+        $subtotal = round($finalAmount * 0.94, 2);
+        $tax = round($finalAmount - $subtotal, 2);
+
+        $currentExpiry = $user->renewal_date ? Carbon::parse($user->renewal_date) : null;
+        $newExpiry = ($currentExpiry && $currentExpiry->isFuture())
+            ? (clone $currentExpiry)->addMonths($months)
+            : now()->addMonths($months);
+
+        $user->update([
+            'membership_status' => 'ACTIVE',
+            'renewal_date' => $newExpiry->format('Y-m-d'),
+        ]);
+
+        $invoiceId = 'INV-'.now()->format('Y').'-'.rand(1000, 9999);
+        $newInvoice = [
+            'id' => $invoiceId,
+            'date' => now()->format('M d, Y'),
+            'plan' => $planName.' ('.$months.' '.($months === 1 ? 'Month' : 'Months').' Extension)',
+            'amount' => '$'.number_format($finalAmount, 2),
+            'method' => $method,
+            'status' => 'Paid',
+            'billing_period' => now()->format('M d, Y').' - '.$newExpiry->format('M d, Y'),
+            'subtotal' => '$'.number_format($subtotal, 2),
+            'tax' => '$'.number_format($tax, 2),
+            'auth_code' => 'AUTH-'.rand(100000, 999999),
+            'description' => 'Official membership renewal extension for '.$months.' '.($months === 1 ? 'month' : 'months').'. Uninterrupted 24/7 gym floor and biometric turnstile privileges.',
+        ];
+
+        $customInvoices = session()->get('user_custom_invoices', []);
+        session()->put('user_custom_invoices', [$invoiceId => $newInvoice] + $customInvoices);
+
+        return redirect()->route('profile')->with('success', 'Membership successfully renewed & extended by '.$months.' '.($months === 1 ? 'month' : 'months').'! Active until '.$newExpiry->format('M d, Y').'. New tax receipt '.$invoiceId.' generated.');
     }
 
     /**
@@ -345,7 +436,9 @@ class ProfileController extends Controller
      */
     private function getInvoicesList(): array
     {
-        return [
+        $customInvoices = session()->get('user_custom_invoices', []);
+
+        $defaultInvoices = [
             'INV-2026-1002' => [
                 'id' => 'INV-2026-1002',
                 'date' => 'Oct 15, 2026',
@@ -490,5 +583,7 @@ class ProfileController extends Controller
                 'description' => 'New member onboarding package, biometric turnstile registration, gym gear kit, and first month training privileges.',
             ],
         ];
+
+        return array_merge($customInvoices, $defaultInvoices);
     }
 }

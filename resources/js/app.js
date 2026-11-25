@@ -331,6 +331,28 @@ window.changeCurrency = function (symbol, code) {
         el.textContent = `${symbol}${converted.toLocaleString()}`;
     });
 
+    // Convert breakdown elements in pricing cards
+    document.querySelectorAll('.calc-regular-price').forEach(el => {
+        const base = parseFloat(el.getAttribute('data-base')) || 348;
+        el.textContent = `${symbol}${Math.round(base * rate).toLocaleString()}.00`;
+    });
+    document.querySelectorAll('.calc-discount-badge').forEach(el => {
+        const base = parseFloat(el.getAttribute('data-base')) || 88;
+        const pct = el.textContent.includes('23%') ? '23%' : '25%';
+        el.textContent = `-${symbol}${Math.round(base * rate).toLocaleString()}.00 (${pct} OFF)`;
+    });
+    document.querySelectorAll('.calc-final-price').forEach(el => {
+        const base = parseFloat(el.getAttribute('data-base')) || 260;
+        el.textContent = `${symbol}${Math.round(base * rate).toLocaleString()}.00 / yr`;
+    });
+    document.querySelectorAll('.effective-monthly-text').forEach(el => {
+        const text = el.textContent;
+        let base = 21.67;
+        if (text.includes('40')) base = 40.83;
+        else if (text.includes('74')) base = 74.17;
+        el.textContent = `${symbol}${(base * rate).toFixed(2)}`;
+    });
+
     // Close any open popovers
     document.querySelectorAll('.dropdown-popover').forEach(el => el.classList.add('hidden'));
 };
