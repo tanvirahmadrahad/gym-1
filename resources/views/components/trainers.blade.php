@@ -1,112 +1,162 @@
-<section id="trainers" class="py-20 lg:py-28 bg-[#0a0c10] relative">
-    <div class="max-w-7xl mx-auto px-4 sm:px-8">
+<!-- ========================================================== -->
+<!-- 12. CERTIFIED ELITE TRAINERS & COACHES                     -->
+<!-- (Gymstick Master Coaching Collective - 100% Male Coaches)  -->
+<!-- ========================================================== -->
+<section id="trainers" class="py-20 lg:py-28 bg-[#06080d] relative overflow-hidden select-none border-t border-white/[0.08]">
+    
+    <!-- Ambient Accent Glow -->
+    <div class="absolute bottom-10 left-1/3 w-[600px] h-[600px] bg-[#ff5e14]/12 rounded-full blur-[200px] pointer-events-none"></div>
+    <div class="absolute top-10 right-10 w-[450px] h-[450px] bg-cyan-500/10 rounded-full blur-[190px] pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 relative z-10">
+        
         <!-- Header -->
-        <div class="text-center max-w-2xl mx-auto mb-14">
-            <h2 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight mb-4">
-                Meet Our Trainer
+        <div class="text-center max-w-3xl mx-auto mb-16 lg:mb-20">
+            <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full badge-glow text-xs font-black uppercase tracking-widest mb-4 shadow-sm">
+                <i class="fa-solid fa-user-shield text-[#ff5e14]"></i>
+                <span>THE COACHING COLLECTIVE</span>
+            </span>
+            <h2 class="font-heading text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight uppercase leading-[1.05] mb-5">
+                Meet Our <span class="text-gradient-orange">Elite Coaches</span>
             </h2>
-            <p class="text-gray-400 text-sm sm:text-base leading-relaxed">
-                Our expert trainers effort their best for your growth.
+            <p class="text-slate-300 text-sm sm:text-base md:text-lg leading-relaxed">
+                Every Gymstick coach is CSCS or Biomechanics certified with minimum 8+ years competitive lifting experience. No uncertified floor interns.
             </p>
         </div>
 
-        <!-- Trainers Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Trainer 1 -->
-            <div class="relative rounded-2xl overflow-hidden border border-white/10 group bg-[#13161f] shadow-xl">
-                <div class="h-[420px] overflow-hidden">
+        <!-- 3 Coaches Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+            
+            <!-- Coach 1: Marcus Hayes -->
+            <div class="card-vibrant rounded-3xl overflow-hidden group shadow-2xl flex flex-col justify-between hover:border-[#ff5e14]/60 transition-all duration-500">
+                <div class="h-[380px] sm:h-[420px] overflow-hidden relative">
                     <img 
-                        src="{{ asset('images/trainer-1.png') }}" 
-                        alt="Alex Cox - Fitness Coach" 
+                        src="{{ asset('images/coach_marcus.jpg') }}" 
+                        alt="Marcus Hayes - Head of Biomechanics" 
                         loading="lazy"
-                        decoding="async"
-                        class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                        onerror="this.onerror=null; this.src='{{ asset('images/trainer-man.jpg') }}';"
+                        class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700 filter brightness-105 contrast-105"
                     >
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0c101a] via-transparent to-transparent"></div>
+                    <div class="absolute top-4 left-4">
+                        <span class="text-[10px] font-black uppercase tracking-wider text-white bg-[#06080d]/80 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/20 shadow-lg">
+                            CSCS • 12 Yrs Exp
+                        </span>
+                    </div>
                 </div>
-                <!-- Dark Gradient Overlay -->
-                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"></div>
 
-                <!-- Info Box at bottom -->
-                <div class="absolute bottom-0 inset-x-0 p-6 text-center z-10">
-                    <h3 class="font-heading text-2xl font-bold text-white mb-1">
-                        Alex Cox
-                    </h3>
-                    <p class="text-xs uppercase tracking-wider text-[#e2ff38] font-semibold">
-                        Fitness Coach
-                    </p>
-                    <!-- Social icons on hover -->
-                    <div class="flex items-center justify-center gap-3 mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <a href="#" class="w-8 h-8 rounded-full bg-white/10 hover:bg-[#e2ff38] text-white hover:text-black flex items-center justify-center text-xs transition-colors"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="#" class="w-8 h-8 rounded-full bg-white/10 hover:bg-[#e2ff38] text-white hover:text-black flex items-center justify-center text-xs transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="#" class="w-8 h-8 rounded-full bg-white/10 hover:bg-[#e2ff38] text-white hover:text-black flex items-center justify-center text-xs transition-colors"><i class="fa-brands fa-x-twitter"></i></a>
+                <div class="p-6 sm:p-7 space-y-4">
+                    <div>
+                        <span class="text-[10px] font-black uppercase tracking-widest text-[#ff9e58] block mb-1">
+                            BIOMECHANICS & POWERLIFTING
+                        </span>
+                        <h3 class="font-heading text-2xl font-black text-white uppercase group-hover:text-[#ff9e58] transition-colors">
+                            Marcus Hayes
+                        </h3>
+                        <p class="text-xs text-slate-300 leading-relaxed mt-2">
+                            Eleiko IPF Certified Master Coach specializing in squat mechanics, hip mobility, and high-load mechanical tension.
+                        </p>
+                    </div>
+
+                    <div class="pt-4 border-t border-white/10 flex items-center justify-between">
+                        <span class="text-[11px] font-bold text-slate-300">Squat PR: 280kg</span>
+                        <a 
+                            href="#free-trial" 
+                            class="inline-flex items-center gap-1.5 text-xs font-bold text-[#ff9e58] hover:text-white transition-colors"
+                        >
+                            <span>Book Consultation</span>
+                            <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </a>
                     </div>
                 </div>
             </div>
 
-            <!-- Trainer 2 -->
-            <div class="relative rounded-2xl overflow-hidden border border-white/10 group bg-[#13161f] shadow-xl">
-                <div class="h-[420px] overflow-hidden">
+            <!-- Coach 2: David Vance -->
+            <div class="card-vibrant rounded-3xl overflow-hidden group shadow-2xl flex flex-col justify-between hover:border-[#ff5e14]/60 transition-all duration-500">
+                <div class="h-[380px] sm:h-[420px] overflow-hidden relative">
                     <img 
-                        src="{{ asset('images/trainer-2.png') }}" 
-                        alt="Donald Marshal - Trainer Body Builder" 
+                        src="{{ asset('images/coach_portrait_male.jpg') }}" 
+                        alt="David Vance - Olympic Weightlifting Lead" 
                         loading="lazy"
-                        decoding="async"
-                        class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                        onerror="this.onerror=null; this.src='{{ asset('images/man-dumbbell.jpg') }}';"
+                        class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700 filter brightness-105 contrast-105"
                     >
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0c101a] via-transparent to-transparent"></div>
+                    <div class="absolute top-4 left-4">
+                        <span class="text-[10px] font-black uppercase tracking-wider text-white bg-[#06080d]/80 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/20 shadow-lg">
+                            USAW L2 • 10 Yrs Exp
+                        </span>
+                    </div>
                 </div>
-                <!-- Dark Gradient Overlay -->
-                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"></div>
 
-                <!-- Info Box at bottom -->
-                <div class="absolute bottom-0 inset-x-0 p-6 text-center z-10">
-                    <h3 class="font-heading text-2xl font-bold text-white mb-1">
-                        Donald Marshal
-                    </h3>
-                    <p class="text-xs uppercase tracking-wider text-[#e2ff38] font-semibold">
-                        Trainer Body Builder
-                    </p>
-                    <!-- Social icons on hover -->
-                    <div class="flex items-center justify-center gap-3 mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <a href="#" class="w-8 h-8 rounded-full bg-white/10 hover:bg-[#e2ff38] text-white hover:text-black flex items-center justify-center text-xs transition-colors"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="#" class="w-8 h-8 rounded-full bg-white/10 hover:bg-[#e2ff38] text-white hover:text-black flex items-center justify-center text-xs transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="#" class="w-8 h-8 rounded-full bg-white/10 hover:bg-[#e2ff38] text-white hover:text-black flex items-center justify-center text-xs transition-colors"><i class="fa-brands fa-x-twitter"></i></a>
+                <div class="p-6 sm:p-7 space-y-4">
+                    <div>
+                        <span class="text-[10px] font-black uppercase tracking-widest text-[#ff9e58] block mb-1">
+                            OLYMPIC WEIGHTLIFTING & TURF
+                        </span>
+                        <h3 class="font-heading text-2xl font-black text-white uppercase group-hover:text-[#ff9e58] transition-colors">
+                            David Vance
+                        </h3>
+                        <p class="text-xs text-slate-300 leading-relaxed mt-2">
+                            Former national competitor specializing in explosive triple extension, snatch speed, and high-velocity conditioning.
+                        </p>
+                    </div>
+
+                    <div class="pt-4 border-t border-white/10 flex items-center justify-between">
+                        <span class="text-[11px] font-bold text-slate-300">Clean & Jerk: 185kg</span>
+                        <a 
+                            href="#free-trial" 
+                            class="inline-flex items-center gap-1.5 text-xs font-bold text-[#ff9e58] hover:text-white transition-colors"
+                        >
+                            <span>Book Consultation</span>
+                            <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </a>
                     </div>
                 </div>
             </div>
 
-            <!-- Trainer 3 -->
-            <div class="relative rounded-2xl overflow-hidden border border-white/10 group bg-[#13161f] shadow-xl">
-                <div class="h-[420px] overflow-hidden">
+            <!-- Coach 3: Alex Miller -->
+            <div class="card-vibrant rounded-3xl overflow-hidden group shadow-2xl flex flex-col justify-between hover:border-[#ff5e14]/60 transition-all duration-500">
+                <div class="h-[380px] sm:h-[420px] overflow-hidden relative">
                     <img 
-                        src="{{ asset('images/trainer-3.png') }}" 
-                        alt="Harley Pasternak - Training Celebrity" 
+                        src="{{ asset('images/coach_alex.jpg') }}" 
+                        alt="Alex Miller - Strength & Hypertrophy Lead" 
                         loading="lazy"
-                        decoding="async"
-                        class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                        onerror="this.onerror=null; this.src='{{ asset('images/trainer-man.jpg') }}';"
+                        class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700 filter brightness-105 contrast-105"
                     >
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0c101a] via-transparent to-transparent"></div>
+                    <div class="absolute top-4 left-4">
+                        <span class="text-[10px] font-black uppercase tracking-wider text-white bg-[#06080d]/80 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/20 shadow-lg">
+                            M.Sc Kinesiology • 9 Yrs
+                        </span>
+                    </div>
                 </div>
-                <!-- Dark Gradient Overlay -->
-                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"></div>
 
-                <!-- Info Box at bottom -->
-                <div class="absolute bottom-0 inset-x-0 p-6 text-center z-10">
-                    <h3 class="font-heading text-2xl font-bold text-white mb-1">
-                        Harley Pasternak
-                    </h3>
-                    <p class="text-xs uppercase tracking-wider text-[#e2ff38] font-semibold">
-                        Training Celebrity
-                    </p>
-                    <!-- Social icons on hover -->
-                    <div class="flex items-center justify-center gap-3 mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <a href="#" class="w-8 h-8 rounded-full bg-white/10 hover:bg-[#e2ff38] text-white hover:text-black flex items-center justify-center text-xs transition-colors"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="#" class="w-8 h-8 rounded-full bg-white/10 hover:bg-[#e2ff38] text-white hover:text-black flex items-center justify-center text-xs transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="#" class="w-8 h-8 rounded-full bg-white/10 hover:bg-[#e2ff38] text-white hover:text-black flex items-center justify-center text-xs transition-colors"><i class="fa-brands fa-x-twitter"></i></a>
+                <div class="p-6 sm:p-7 space-y-4">
+                    <div>
+                        <span class="text-[10px] font-black uppercase tracking-widest text-[#ff9e58] block mb-1">
+                            STRENGTH & HYPERTROPHY
+                        </span>
+                        <h3 class="font-heading text-2xl font-black text-white uppercase group-hover:text-[#ff9e58] transition-colors">
+                            Alex Miller
+                        </h3>
+                        <p class="text-xs text-slate-300 leading-relaxed mt-2">
+                            Master of Science in Kinesiology. Specializes in advanced progressive overload periodization and myofibrillar hypertrophy splits.
+                        </p>
+                    </div>
+
+                    <div class="pt-4 border-t border-white/10 flex items-center justify-between">
+                        <span class="text-[11px] font-bold text-slate-300">Deadlift: 310kg</span>
+                        <a 
+                            href="#free-trial" 
+                            class="inline-flex items-center gap-1.5 text-xs font-bold text-[#ff9e58] hover:text-white transition-colors"
+                        >
+                            <span>Book Consultation</span>
+                            <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </a>
                     </div>
                 </div>
             </div>
+
         </div>
+
     </div>
 </section>

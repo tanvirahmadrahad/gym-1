@@ -1,51 +1,157 @@
 @import 'tailwindcss';
 
 @theme {
-    --font-heading: 'Oswald', sans-serif;
+    --font-heading: 'Montserrat', 'Oswald', sans-serif;
     --font-sans: 'Inter', system-ui, sans-serif;
-    --color-primary: #e2ff38;
-    --color-primary-hover: #d2ee23;
-    --color-gym-dark: #0a0c10;
-    --color-gym-surface: #131722;
-    --color-gym-card: #151a27;
-    --color-gym-border: #22293b;
+    --color-orange-brand: #ff5e14;
+    --color-orange-glow: #ff7a1a;
+    --color-orange-light: #ff9e58;
+    --color-orange-dark: #d84500;
+    --color-cyan-brand: #00f0ff;
+    --color-cyan-glow: #38bdf8;
+    --color-dark-bg: #080a0f;
+    --color-dark-surface: #0e121a;
+    --color-dark-elevated: #131824;
+    --color-dark-card: #161e30;
 }
 
 @layer base {
+    html {
+        font-family: 'Inter', system-ui, sans-serif;
+        background-color: #080a0f;
+        color: #f8fafc;
+        overflow-x: hidden;
+        max-width: 100vw;
+        scrollbar-color: #ff5e14 #0a0d14;
+        scrollbar-width: thin;
+    }
+
     body {
         font-family: 'Inter', system-ui, sans-serif;
-        background-color: #0a0c10;
-        color: #f3f4f6;
+        background-color: #080a0f;
+        color: #f8fafc;
         overflow-x: hidden;
+        max-width: 100vw;
+        margin: 0;
+        padding: 0;
+        /* Clean, subtle architectural gym floor grid - NO blurry blobs */
+        background-image: 
+            radial-gradient(circle at 50% 0%, rgba(255, 94, 20, 0.05) 0%, transparent 40%),
+            linear-gradient(to right, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+        background-size: 100% 100%, 44px 44px, 44px 44px;
+        background-attachment: fixed;
     }
 
     h1, h2, h3, h4, h5, h6, .font-heading {
-        font-family: 'Oswald', sans-serif;
-        letter-spacing: 0.025em;
+        font-family: 'Montserrat', 'Oswald', sans-serif;
+        letter-spacing: -0.025em;
     }
 }
 
-/* Authentic Athletic Card Hovers */
-.card-hover {
-    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-}
-.card-hover:hover {
-    transform: translateY(-5px);
-    border-color: rgba(226, 255, 56, 0.4);
-    box-shadow: 0 14px 28px -10px rgba(0, 0, 0, 0.6), 0 0 15px rgba(226, 255, 56, 0.12);
+/* ========================================================== */
+/* AUTHENTIC ATHLETIC DESIGN SYSTEM (Crafted & Clean)        */
+/* ========================================================== */
+
+/* Fiery Radiant Text Gradients */
+.text-gradient-orange {
+    background: linear-gradient(135deg, #ffb366 0%, #ff5e14 50%, #e03200 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-/* Custom scrollbar */
+.text-gradient-fire {
+    background: linear-gradient(135deg, #ffd166 0%, #ff7a1a 40%, #ff3b00 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-cyan {
+    background: linear-gradient(135deg, #a5f3fc 0%, #00f0ff 60%, #0284c7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Background Gradients */
+.bg-gradient-fire {
+    background: linear-gradient(135deg, #ff7a1a 0%, #ff5e14 45%, #d83b01 100%);
+}
+
+/* Radiant CTA Buttons */
+.btn-glow-orange {
+    background: linear-gradient(135deg, #ff7a1a 0%, #ff5e14 45%, #d83b01 100%);
+    box-shadow: 0 4px 20px -2px rgba(255, 94, 20, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-glow-orange:hover {
+    box-shadow: 0 8px 30px 0px rgba(255, 94, 20, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    transform: translateY(-2px) scale(1.02);
+}
+
+/* Premium Charcoal Athletic Cards */
+.card-vibrant {
+    background: linear-gradient(180deg, rgba(23, 29, 44, 0.7) 0%, rgba(13, 17, 26, 0.9) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-vibrant:hover {
+    border-color: rgba(255, 94, 20, 0.45);
+    box-shadow: 0 14px 40px -10px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    transform: translateY(-3px);
+}
+
+.card-vibrant-active {
+    background: linear-gradient(180deg, rgba(32, 40, 60, 0.8) 0%, rgba(16, 22, 34, 0.95) 100%);
+    border: 2px solid #ff5e14;
+    box-shadow: 0 14px 45px -10px rgba(255, 94, 20, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+/* Radiant Badges */
+.badge-glow {
+    background: rgba(255, 94, 20, 0.12);
+    border: 1px solid rgba(255, 94, 20, 0.35);
+    color: #ff9e58;
+}
+
+.badge-cyan-glow {
+    background: rgba(0, 240, 255, 0.12);
+    border: 1px solid rgba(0, 240, 255, 0.35);
+    color: #38bdf8;
+}
+
+/* Giant Subtle Background Watermark Text */
+.bg-watermark {
+    position: absolute;
+    font-weight: 900;
+    font-family: 'Montserrat', 'Oswald', sans-serif;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.03);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    user-select: none;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
+    height: 6px;
 }
 ::-webkit-scrollbar-track {
-    background: #0a0c10;
+    background: #080a0f;
 }
 ::-webkit-scrollbar-thumb {
-    background: #22293b;
-    border-radius: 4px;
+    background: #1c2436;
+    border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: #e2ff38;
+    background: #ff5e14;
 }

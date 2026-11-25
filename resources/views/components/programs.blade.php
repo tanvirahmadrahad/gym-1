@@ -1,185 +1,303 @@
-<section id="programs" class="py-20 lg:py-28 bg-[#0b0e14] relative">
-    <div class="max-w-7xl mx-auto px-4 sm:px-8">
-        <!-- Section Header & Top Program Card Grid -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start mb-8">
-            <!-- Left: Header info -->
-            <div class="max-w-xl flex flex-col justify-between h-full">
-                <div>
-                    <h2 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight mb-4">
-                        Programs That Deliver Real Results
-                    </h2>
-                    <p class="text-gray-400 text-sm sm:text-base leading-relaxed">
-                        Personalized, trackable programs built to push limits and redefine what your body can do.
-                    </p>
-                </div>
+<!-- ========================================================== -->
+<!-- 2. FITNESS GOAL PATHWAYS                                   -->
+<!-- ========================================================== -->
+<section id="programs" class="py-20 lg:py-28 bg-[#0a0d14] relative overflow-hidden select-none border-t border-white/[0.08]">
+    
+    <!-- Giant Subtle Outline Watermark -->
+    <div class="bg-watermark top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[15vw] leading-none whitespace-nowrap opacity-25">
+        PROGRAMS
+    </div>
 
-                <!-- Highlight Card to balance layout and fill empty space -->
-                <div class="mt-6 p-4 rounded-xl bg-[#13161f] border border-white/10 flex items-center justify-between gap-4 card-hover">
-                    <div class="flex items-center gap-3.5">
-                        <div class="w-10 h-10 rounded-lg bg-[#e2ff38]/15 text-[#e2ff38] flex items-center justify-center text-base shrink-0">
-                            <i class="fa-solid fa-award"></i>
-                        </div>
-                        <div>
-                            <span class="text-white text-sm font-bold block">100% Results Guaranteed</span>
-                            <span class="text-xs text-gray-400">Scientific workout plans designed by certified fitness coaches.</span>
+    <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 relative z-10">
+        
+        <!-- Section Header -->
+        <div class="text-center max-w-3xl mx-auto mb-14 lg:mb-18">
+            <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full badge-glow text-xs font-bold uppercase tracking-wider mb-4">
+                <i class="fa-solid fa-bullseye text-[#ff5e14]"></i>
+                <span>TARGET GOALS</span>
+            </span>
+            <h2 class="font-heading text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight uppercase leading-[1.05] mb-5">
+                Choose Your <span class="text-gradient-orange">Training Focus</span>
+            </h2>
+            <p class="text-slate-300 text-sm sm:text-base md:text-lg leading-relaxed">
+                Whether you want to build muscle, lose body fat, or build athletic power, choose your primary focus below to see your typical weekly routine and expectations.
+            </p>
+        </div>
+
+        <!-- 4 Interactive Goal Pathway Tabs -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-10 sm:mb-12">
+            
+            <!-- Goal 01: Hypertrophy -->
+            <button 
+                type="button" 
+                onclick="switchGoalPathway(0)"
+                id="goal-tab-0"
+                class="card-vibrant-active p-4 sm:p-5 rounded-2xl text-left transition-all duration-300 cursor-pointer group"
+            >
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#ff7a1a] to-[#ff5e14] text-white flex items-center justify-center text-lg mb-3 shadow-md shadow-[#ff5e14]/30">
+                    <i class="fa-solid fa-bolt"></i>
+                </div>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-[#ff9e58] block mb-0.5">Muscle Building</span>
+                <h4 class="font-heading text-sm sm:text-base font-bold text-white group-hover:text-[#ff9e58] transition-colors line-clamp-1">
+                    Hypertrophy & Mass
+                </h4>
+            </button>
+
+            <!-- Goal 02: Fat Shred -->
+            <button 
+                type="button" 
+                onclick="switchGoalPathway(1)"
+                id="goal-tab-1"
+                class="card-vibrant p-4 sm:p-5 rounded-2xl text-left transition-all duration-300 cursor-pointer group"
+            >
+                <div class="w-10 h-10 rounded-xl bg-white/5 text-slate-300 flex items-center justify-center text-lg mb-3 border border-white/10">
+                    <i class="fa-solid fa-fire-flame-curved"></i>
+                </div>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-0.5">Fat Loss</span>
+                <h4 class="font-heading text-sm sm:text-base font-bold text-white group-hover:text-[#ff9e58] transition-colors line-clamp-1">
+                    Fat Loss & Conditioning
+                </h4>
+            </button>
+
+            <!-- Goal 03: Combat & Power -->
+            <button 
+                type="button" 
+                onclick="switchGoalPathway(2)"
+                id="goal-tab-2"
+                class="card-vibrant p-4 sm:p-5 rounded-2xl text-left transition-all duration-300 cursor-pointer group"
+            >
+                <div class="w-10 h-10 rounded-xl bg-white/5 text-slate-300 flex items-center justify-center text-lg mb-3 border border-white/10">
+                    <i class="fa-solid fa-hand-fist"></i>
+                </div>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-0.5">Performance</span>
+                <h4 class="font-heading text-sm sm:text-base font-bold text-white group-hover:text-[#ff9e58] transition-colors line-clamp-1">
+                    Combat & Athletic Turf
+                </h4>
+            </button>
+
+            <!-- Goal 04: Longevity -->
+            <button 
+                type="button" 
+                onclick="switchGoalPathway(3)"
+                id="goal-tab-3"
+                class="card-vibrant p-4 sm:p-5 rounded-2xl text-left transition-all duration-300 cursor-pointer group"
+            >
+                <div class="w-10 h-10 rounded-xl bg-white/5 text-slate-300 flex items-center justify-center text-lg mb-3 border border-white/10">
+                    <i class="fa-solid fa-spa"></i>
+                </div>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-0.5">Wellness</span>
+                <h4 class="font-heading text-sm sm:text-base font-bold text-white group-hover:text-[#ff9e58] transition-colors line-clamp-1">
+                    Strength & Longevity
+                </h4>
+            </button>
+
+        </div>
+
+        <!-- Dynamic Goal Pathway Showcase Card -->
+        <div class="card-vibrant rounded-3xl overflow-hidden shadow-2xl p-6 sm:p-8 lg:p-12 relative">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                
+                <!-- Pathway Image (5 Cols) -->
+                <div class="lg:col-span-5 relative order-2 lg:order-1">
+                    <div class="relative rounded-2xl overflow-hidden aspect-[4/3] sm:aspect-[16/10] lg:aspect-[4/3] border border-white/15 shadow-2xl group">
+                        <img 
+                            id="goal-img"
+                            src="{{ asset('images/athlete-intense.jpg') }}" 
+                            alt="Training Goal Pathway" 
+                            class="w-full h-full object-cover object-center filter brightness-105 contrast-105 group-hover:scale-105 transition-all duration-700"
+                        >
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none"></div>
+                        <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between text-xs text-white">
+                            <span id="goal-status" class="font-bold flex items-center gap-1.5 bg-black/70 backdrop-blur-md px-3 py-1 rounded-full border border-white/10">
+                                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                                <span>Coaches On Floor</span>
+                            </span>
+                            <span id="goal-timeline" class="font-bold text-[#ff9e58] bg-black/70 backdrop-blur-md px-3 py-1 rounded-full border border-[#ff5e14]/40">
+                                12-WEEK CYCLE
+                            </span>
                         </div>
                     </div>
-                    <a href="#pricing" class="inline-flex items-center gap-1.5 bg-[#e2ff38] hover:bg-[#d0ee27] text-black font-bold text-xs uppercase px-3.5 py-2 rounded-lg shrink-0 transition-all">
-                        <span>Join</span>
-                        <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                    </a>
                 </div>
-            </div>
 
-            <!-- Program 1: Transformation Programs (Top Right) -->
-            <div id="transformation-programs" class="scroll-mt-28 bg-[#13161f] border border-white/10 rounded-2xl p-6 hover:border-[#e2ff38]/40 transition-all flex flex-col sm:flex-row gap-5 items-center group">
-                <div class="w-full sm:w-48 h-48 sm:h-full min-h-[170px] rounded-xl overflow-hidden shrink-0 relative">
-                    <img 
-                        src="{{ asset('images/program-transformation.png') }}" 
-                        alt="Transformation Programs" 
-                        loading="lazy"
-                        decoding="async"
-                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        onerror="this.onerror=null; this.src='{{ asset('images/man-dumbbell.jpg') }}';"
-                    >
-                    <span class="absolute top-2.5 left-2.5 bg-[#e2ff38] text-black text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded shadow">
-                        12-Week Course
-                    </span>
-                </div>
-                <div class="flex-1">
-                    <div class="flex items-center justify-between gap-2 mb-1.5">
-                        <h3 class="font-heading text-xl font-bold text-white group-hover:text-[#e2ff38] transition-colors">Transformation Programs</h3>
+                <!-- Pathway Strategy & Deliverables (7 Cols) -->
+                <div class="lg:col-span-7 space-y-6 order-1 lg:order-2">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full badge-glow text-xs font-bold uppercase tracking-wider">
+                        <i class="fa-solid fa-bullseye text-[#ff5e14]"></i>
+                        <span id="goal-badge">PROGRAM 01 • HYPERTROPHY FOCUS</span>
                     </div>
-                    <p class="text-xs text-gray-400 leading-relaxed mb-4">
-                        Structured, high-impact body recomposition periodization designed to drop body fat while packing on lean, defined muscle mass.
+
+                    <h3 id="goal-title" class="font-heading text-2xl sm:text-4xl font-black text-white tracking-tight leading-tight">
+                        Lean Muscle Building & Hypertrophy Split
+                    </h3>
+
+                    <p id="goal-desc" class="text-slate-300 text-sm sm:text-base leading-relaxed font-normal">
+                        Designed for lifters who want to pack on dense muscle, broaden their shoulders and back, and build lasting strength through progressive overload and high-tension lifting.
                     </p>
-                    <ul class="space-y-1.5 text-xs text-gray-300 mb-4">
-                        <li class="flex items-center gap-2">
-                            <i class="fa-solid fa-circle-check text-[#e2ff38] text-[11px]"></i>
-                            <span>12-week progressive hypertrophy periodization</span>
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <i class="fa-solid fa-circle-check text-[#e2ff38] text-[11px]"></i>
-                            <span>Bi-weekly DEXA body scans & caliper testing</span>
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <i class="fa-solid fa-circle-check text-[#e2ff38] text-[11px]"></i>
-                            <span>Weekly 1-on-1 coach check-ins & accountability</span>
-                        </li>
-                    </ul>
-                    <a href="#pricing" class="inline-flex items-center gap-1.5 text-xs font-bold text-[#e2ff38] hover:text-white transition-colors uppercase tracking-wider">
-                        <span>View Plans & Pricing</span>
-                        <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                    </a>
+
+                    <!-- Key Deliverables List -->
+                    <div class="space-y-3 pt-2">
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-circle-check text-[#ff5e14] text-base shrink-0 mt-0.5"></i>
+                            <span id="goal-point-1" class="text-xs sm:text-sm text-slate-200">
+                                4 to 5 Days per week Push-Pull-Legs structured split
+                            </span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-circle-check text-[#ff5e14] text-base shrink-0 mt-0.5"></i>
+                            <span id="goal-point-2" class="text-xs sm:text-sm text-slate-200">
+                                Daily protein and calorie target calculated for your current weight
+                            </span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-circle-check text-[#ff5e14] text-base shrink-0 mt-0.5"></i>
+                            <span id="goal-point-3" class="text-xs sm:text-sm text-slate-200">
+                                Bi-weekly body composition scans and coach form check-ins
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Target Metric Chips -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-4 border-t border-white/10">
+                        <div class="p-3.5 rounded-xl bg-white/[0.04] border border-white/10">
+                            <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Weekly Frequency</span>
+                            <span id="goal-metric-1" class="text-xs sm:text-sm font-black text-white block mt-0.5">4–5 Days / Week</span>
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-white/[0.04] border border-white/10">
+                            <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Expected Gain</span>
+                            <span id="goal-metric-2" class="text-xs sm:text-sm font-black text-gradient-orange block mt-0.5">+4kg to 6kg Muscle</span>
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-white/[0.04] border border-white/10">
+                            <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Workout Style</span>
+                            <span id="goal-metric-3" class="text-xs sm:text-sm font-black text-white block mt-0.5">Hypertrophy & Heavy Compound</span>
+                        </div>
+                    </div>
+
+                    <!-- CTA Buttons -->
+                    <div class="pt-4 flex items-center flex-wrap gap-4">
+                        <a 
+                            href="#free-trial" 
+                            class="btn-glow-orange inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-white font-bold text-sm tracking-wide shadow-lg cursor-pointer"
+                        >
+                            <span>Start This Program Free</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+
+                        <a 
+                            href="#trainers" 
+                            class="px-6 py-3.5 rounded-xl border border-white/20 hover:border-white text-white font-bold text-sm transition-all cursor-pointer"
+                        >
+                            Talk to a Coach
+                        </a>
+                    </div>
                 </div>
+
             </div>
         </div>
 
-        <!-- Bottom Grid: Program 2 & Program 3 -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <!-- Program 2: Personal Training -->
-            <div id="personal-training" class="scroll-mt-28 bg-[#13161f] border border-white/10 rounded-2xl p-6 hover:border-[#00d2ff]/40 transition-all flex flex-col sm:flex-row gap-5 items-center group">
-                <div class="w-full sm:w-48 h-48 sm:h-full min-h-[170px] rounded-xl overflow-hidden shrink-0 relative">
-                    <img 
-                        src="{{ asset('images/program-personal.png') }}" 
-                        alt="Personal Training" 
-                        loading="lazy"
-                        decoding="async"
-                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        onerror="this.onerror=null; this.src='{{ asset('images/trainer-man.jpg') }}';"
-                    >
-                    <span class="absolute top-2.5 left-2.5 bg-[#00d2ff] text-black text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded shadow">
-                        1-on-1 Coaching
-                    </span>
-                </div>
-                <div class="flex-1">
-                    <div class="flex items-center justify-between gap-2 mb-1.5">
-                        <h3 class="font-heading text-xl font-bold text-white group-hover:text-[#00d2ff] transition-colors">Personal Training</h3>
-                    </div>
-                    <p class="text-xs text-gray-400 leading-relaxed mb-4">
-                        Elite 1-on-1 private coaching tailored to your individual biomechanics, strength baseline, athletic movement quality, and injury prevention.
-                    </p>
-                    <ul class="space-y-1.5 text-xs text-gray-300 mb-4">
-                        <li class="flex items-center gap-2">
-                            <i class="fa-solid fa-circle-check text-[#00d2ff] text-[11px]"></i>
-                            <span>Comprehensive movement & mobility assessment</span>
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <i class="fa-solid fa-circle-check text-[#00d2ff] text-[11px]"></i>
-                            <span>Real-time biomechanical feedback & form correction</span>
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <i class="fa-solid fa-circle-check text-[#00d2ff] text-[11px]"></i>
-                            <span>Dedicated VIP training rack & flexible schedule</span>
-                        </li>
-                    </ul>
-                    <a href="#trainers" class="inline-flex items-center gap-1.5 text-xs font-bold text-[#00d2ff] hover:text-white transition-colors uppercase tracking-wider">
-                        <span>Meet Our Coaches</span>
-                        <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Program 3: Nutrition Coaching -->
-            <div id="nutrition-coaching" class="scroll-mt-28 bg-[#13161f] border border-white/10 rounded-2xl p-6 hover:border-[#ff5e36]/40 transition-all flex flex-col sm:flex-row gap-5 items-center group">
-                <div class="w-full sm:w-48 h-48 sm:h-full min-h-[170px] rounded-xl overflow-hidden shrink-0 relative">
-                    <img 
-                        src="{{ asset('images/program-nutrition.png') }}" 
-                        alt="Nutrition Coaching" 
-                        loading="lazy"
-                        decoding="async"
-                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        onerror="this.onerror=null; this.src='{{ asset('images/nutrition-food.jpg') }}';"
-                    >
-                    <span class="absolute top-2.5 left-2.5 bg-[#ff5e36] text-white text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded shadow">
-                        Nutrition Pro
-                    </span>
-                </div>
-                <div class="flex-1">
-                    <div class="flex items-center justify-between gap-2 mb-1.5">
-                        <h3 class="font-heading text-xl font-bold text-white group-hover:text-[#ff5e36] transition-colors">Nutrition Coaching</h3>
-                    </div>
-                    <p class="text-xs text-gray-400 leading-relaxed mb-4">
-                        Evidence-based nutrition planning designed for your metabolism. Fuel heavy sessions, accelerate recovery, and attain lasting body composition without starvation.
-                    </p>
-                    <ul class="space-y-1.5 text-xs text-gray-300 mb-4">
-                        <li class="flex items-center gap-2">
-                            <i class="fa-solid fa-circle-check text-[#ff5e36] text-[11px]"></i>
-                            <span>Personalized daily calorie & macronutrient targets</span>
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <i class="fa-solid fa-circle-check text-[#ff5e36] text-[11px]"></i>
-                            <span>Weekly grocery shopping guides & easy recipes</span>
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <i class="fa-solid fa-circle-check text-[#ff5e36] text-[11px]"></i>
-                            <span>Metabolic adaptation adjustments & daily logging</span>
-                        </li>
-                    </ul>
-                    <a href="#pricing" class="inline-flex items-center gap-1.5 text-xs font-bold text-[#ff5e36] hover:text-white transition-colors uppercase tracking-wider">
-                        <span>Get Nutrition Plan</span>
-                        <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
     </div>
 </section>
 
-<style>
-#transformation-programs:target {
-    border-color: #e2ff38;
-    box-shadow: 0 0 35px rgba(226, 255, 56, 0.25);
-    background-color: #171d2b;
-}
-#personal-training:target {
-    border-color: #00d2ff;
-    box-shadow: 0 0 35px rgba(0, 210, 255, 0.25);
-    background-color: #171d2b;
-}
-#nutrition-coaching:target {
-    border-color: #ff5e36;
-    box-shadow: 0 0 35px rgba(255, 94, 54, 0.25);
-    background-color: #171d2b;
-}
-</style>
+<!-- Goal Pathway Controller Script -->
+<script>
+(function() {
+    const goalsData = [
+        {
+            badge: "PROGRAM 01 • HYPERTROPHY FOCUS",
+            timeline: "12-WEEK CYCLE",
+            title: "Lean Muscle Building & Hypertrophy Split",
+            desc: "Designed for lifters who want to pack on dense muscle, broaden their shoulders and back, and build lasting strength through progressive overload and high-tension lifting.",
+            p1: "4 to 5 Days per week Push-Pull-Legs structured split",
+            p2: "Daily protein and calorie target calculated for your current weight",
+            p3: "Bi-weekly body composition scans and coach form check-ins",
+            m1: "4–5 Days / Week",
+            m2: "+4kg to 6kg Muscle",
+            m3: "Hypertrophy & Heavy Compound",
+            img: "{{ asset('images/athlete-intense.jpg') }}"
+        },
+        {
+            badge: "PROGRAM 02 • FAT LOSS & SHRED",
+            timeline: "8–12 WEEKS",
+            title: "Fat Shred, Conditioning & High-Energy HIIT",
+            desc: "A calorie-burning, muscle-preserving combination of compound resistance training, sprint intervals, and sled pushes designed to shed body fat while keeping your hard-earned muscle.",
+            p1: "Full body strength supersets paired with sled sprints",
+            p2: "Sustainable fat-loss calorie target with zero starvation",
+            p3: "Post-workout cold plunge to boost fat oxidation and energy",
+            m1: "3–4 Days / Week",
+            m2: "-5kg to 8kg Body Fat",
+            m3: "Strength + HIIT Sprints",
+            img: "{{ asset('images/athlete-crossfit.jpg') }}"
+        },
+        {
+            badge: "PROGRAM 03 • ATHLETIC & COMBAT",
+            timeline: "ONGOING",
+            title: "Boxing Ring Footwork & 30m Sled Power",
+            desc: "For athletes looking for real stamina, punch power, and functional athletic endurance. Combines heavy bag rounds, turf sled sprints, and barbell power work.",
+            p1: "High-intensity heavy bag intervals & boxing combinations",
+            p2: "Heavy sled push and pull conditioning for leg drive",
+            p3: "Rotational core and explosive power movements",
+            m1: "3–5 Days / Week",
+            m2: "Doubled Stamina & Speed",
+            m3: "Boxing & Sprint Turf",
+            img: "{{ asset('images/boxer_male.jpg') }}"
+        },
+        {
+            badge: "PROGRAM 04 • HEALTH & LONGEVITY",
+            timeline: "LIFESTYLE",
+            title: "Functional Strength, Joint Health & Sauna",
+            desc: "Build a strong, pain-free body that serves you well into your 40s, 50s, and beyond. Focuses on joint stability, mobility, posture, and relaxing recovery sessions in our Finnish sauna.",
+            p1: "Controlled resistance training to strengthen tendons and spine",
+            p2: "Joint mobility routines to fix tight hips and shoulders",
+            p3: "Unlimited sauna and cold plunge to reduce inflammation",
+            m1: "3 Days / Week",
+            m2: "Zero Joint Pain",
+            m3: "Mobility & Sauna Suite",
+            img: "{{ asset('images/sauna_spa.jpg') }}"
+        }
+    ];
+
+    window.switchGoalPathway = function(index) {
+        const item = goalsData[index];
+        const badgeEl = document.getElementById('goal-badge');
+        const timelineEl = document.getElementById('goal-timeline');
+        const titleEl = document.getElementById('goal-title');
+        const descEl = document.getElementById('goal-desc');
+        const p1El = document.getElementById('goal-point-1');
+        const p2El = document.getElementById('goal-point-2');
+        const p3El = document.getElementById('goal-point-3');
+        const m1El = document.getElementById('goal-metric-1');
+        const m2El = document.getElementById('goal-metric-2');
+        const m3El = document.getElementById('goal-metric-3');
+        const imgEl = document.getElementById('goal-img');
+
+        if (imgEl) {
+            imgEl.style.opacity = '0';
+            setTimeout(() => {
+                imgEl.src = item.img;
+                imgEl.style.opacity = '1';
+            }, 180);
+        }
+
+        if (badgeEl) badgeEl.textContent = item.badge;
+        if (timelineEl) timelineEl.textContent = item.timeline;
+        if (titleEl) titleEl.textContent = item.title;
+        if (descEl) descEl.textContent = item.desc;
+        if (p1El) p1El.textContent = item.p1;
+        if (p2El) p2El.textContent = item.p2;
+        if (p3El) p3El.textContent = item.p3;
+        if (m1El) m1El.textContent = item.m1;
+        if (m2El) m2El.textContent = item.m2;
+        if (m3El) m3El.textContent = item.m3;
+
+        for (let i = 0; i < goalsData.length; i++) {
+            const tab = document.getElementById('goal-tab-' + i);
+            if (tab) {
+                if (i === index) {
+                    tab.className = "card-vibrant-active p-4 sm:p-5 rounded-2xl text-left transition-all duration-300 cursor-pointer group";
+                } else {
+                    tab.className = "card-vibrant p-4 sm:p-5 rounded-2xl text-left transition-all duration-300 cursor-pointer group";
+                }
+            }
+        }
+    };
+})();
+</script>

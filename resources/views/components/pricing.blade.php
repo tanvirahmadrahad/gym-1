@@ -1,193 +1,264 @@
-<section id="pricing" class="py-20 lg:py-28 bg-[#0a0d13] relative overflow-hidden">
-    <!-- Subtle Ambient Glow -->
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-[#e2ff38]/5 rounded-full blur-[140px] pointer-events-none"></div>
+<!-- ========================================================== -->
+<!-- 8. MEMBERSHIP & PRICING PLANS                              -->
+<!-- (Gymstick Obsidian Dark & Radiant Fiery Orange Tiers)       -->
+<!-- ========================================================== -->
+<section id="pricing" class="py-20 lg:py-28 bg-[#06080d] relative overflow-hidden select-none border-t border-white/[0.08]">
+    
+    <!-- Ambient Energy Lighting Cones -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-[#ff5e14]/12 rounded-full blur-[200px] pointer-events-none"></div>
+    <div class="absolute top-10 right-10 w-[450px] h-[450px] bg-cyan-500/10 rounded-full blur-[190px] pointer-events-none"></div>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-8 relative z-10">
-        <!-- Header -->
-        <div class="text-center max-w-2xl mx-auto mb-10">
-            <h2 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight mb-4">
-                Our Pricing Plans
+    <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 relative z-10">
+        
+        <!-- Section Header -->
+        <div class="text-center max-w-3xl mx-auto mb-14 lg:mb-18">
+            <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full badge-glow text-xs font-black uppercase tracking-widest mb-4">
+                <i class="fa-solid fa-tags text-[#ff5e14]"></i>
+                <span>MEMBERSHIP TIERS</span>
+            </span>
+            <h2 class="font-heading text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight uppercase leading-[1.05] mb-5">
+                Choose Your <span class="text-gradient-orange">Training Access</span>
             </h2>
-            <p class="text-gray-400 text-sm sm:text-base leading-relaxed">
-                Discover our pricing plans, choose your perfect match and start your journey today.
+            <p class="text-slate-300 text-sm sm:text-base md:text-lg leading-relaxed">
+                Zero signup fees, zero lock-in contracts. Every pass includes digital locker assignment, member app tracking, and biometric onboarding.
             </p>
 
             <!-- Monthly / Yearly Billing Toggle -->
-            <div class="flex items-center justify-center gap-3 mt-8">
-                <span id="label-monthly" class="text-xs font-semibold uppercase tracking-wider text-[#e2ff38] transition-colors">Monthly</span>
+            <div class="inline-flex items-center gap-3 mt-8 p-1.5 rounded-full bg-[#111726] border border-white/15 shadow-xl">
                 <button 
-                    id="pricing-toggle" 
                     type="button" 
-                    class="w-14 h-7 bg-[#1c2230] rounded-full p-1 relative transition-colors border border-white/10 focus:outline-none"
-                    aria-label="Toggle billing duration"
+                    id="billing-monthly-btn"
+                    onclick="setBillingCycle(false)"
+                    class="px-6 py-2 rounded-full text-xs font-black uppercase tracking-wider text-white btn-glow-orange shadow-md transition-all cursor-pointer"
                 >
-                    <span id="pricing-toggle-ball" class="block w-5 h-5 rounded-full bg-[#e2ff38] shadow-md transition-transform translate-x-0"></span>
+                    Monthly
                 </button>
-                <span id="label-yearly" class="text-xs font-semibold uppercase tracking-wider text-gray-400 transition-colors">
-                    Yearly <span class="text-[10px] bg-[#e2ff38]/20 text-[#e2ff38] px-1.5 py-0.5 rounded-full font-bold ml-1">SAVE 20%</span>
-                </span>
+                <button 
+                    type="button" 
+                    id="billing-yearly-btn"
+                    onclick="setBillingCycle(true)"
+                    class="px-6 py-2 rounded-full text-xs font-black uppercase tracking-wider text-slate-400 hover:text-white transition-all cursor-pointer flex items-center gap-2"
+                >
+                    <span>Yearly</span>
+                    <span class="text-[10px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded-full font-bold">SAVE 20%</span>
+                </button>
             </div>
         </div>
 
         <!-- 3 Pricing Cards Grid -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch max-w-6xl mx-auto">
-            <!-- Plan 1: Basic Plan -->
-            <div class="bg-[#131722] border border-white/10 rounded-2xl p-8 flex flex-col justify-between card-hover">
+            
+            <!-- Plan 1: Standard Black -->
+            <div class="card-vibrant rounded-3xl p-7 sm:p-9 flex flex-col justify-between group">
                 <div>
-                    <h3 class="font-heading text-2xl font-bold text-white mb-2">Basic Plan</h3>
-                    <p class="text-xs text-gray-400 mb-6">For beginners starting their fitness.</p>
-
-                    <div class="mb-8">
-                        <span class="font-heading text-5xl font-extrabold text-white price-amount" data-monthly="$29" data-yearly="$260">$29</span>
-                        <span class="text-xs text-gray-400 font-medium price-period">/month</span>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xs font-black uppercase tracking-wider text-slate-400">FOUNDATIONAL</span>
+                        <span class="text-[10px] font-mono text-slate-400 bg-white/5 px-2.5 py-1 rounded-md border border-white/10 font-bold">TIER 01</span>
                     </div>
 
-                    <a 
-                        href="#contact" 
-                        class="block w-full text-center py-3 px-4 rounded-lg border border-white/20 hover:border-[#e2ff38] hover:bg-[#e2ff38] text-white hover:text-black font-semibold text-xs uppercase tracking-wider transition-all mb-8"
-                    >
-                        Get Started
-                    </a>
+                    <h3 class="font-heading text-2xl font-black text-white mb-2 uppercase group-hover:text-[#ff9e58] transition-colors">Standard Black</h3>
+                    <p class="text-xs text-slate-300 mb-6 leading-relaxed">Essential lifting access for dedicated athletes during standard training windows.</p>
 
-                    <div class="space-y-3">
-                        <span class="text-xs font-bold text-gray-300 uppercase tracking-wider block mb-4">What you get</span>
-                        <div class="flex items-center gap-2.5 text-xs text-gray-300">
-                            <i class="fa-solid fa-circle-check text-[#e2ff38]"></i>
-                            <span>Standard gym access at off-peak hours</span>
+                    <div class="mb-8 pb-6 border-b border-white/10">
+                        <div class="flex items-baseline gap-1">
+                            <span class="font-heading text-4xl sm:text-5xl font-black text-white price-amount" data-monthly="$39" data-yearly="$31">$39</span>
+                            <span class="text-xs text-slate-400 font-semibold price-period">/ month</span>
                         </div>
-                        <div class="flex items-center gap-2.5 text-xs text-gray-300">
-                            <i class="fa-solid fa-circle-check text-[#e2ff38]"></i>
-                            <span>1 free fitness assessment session</span>
+                        <span class="text-[11px] text-slate-400 block mt-1 billed-note">Billed monthly • Cancel anytime</span>
+                    </div>
+
+                    <!-- Features List -->
+                    <div class="space-y-3.5 mb-8">
+                        <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-4">INCLUDED PRIVILEGES</span>
+                        <div class="flex items-center gap-3 text-xs text-slate-200">
+                            <i class="fa-solid fa-circle-check text-[#ff5e14] shrink-0 text-sm"></i>
+                            <span>Standard gym & free weight arena access</span>
                         </div>
-                        <div class="flex items-center gap-2.5 text-xs text-gray-300">
-                            <i class="fa-solid fa-circle-check text-[#e2ff38]"></i>
-                            <span>Locker & shower facilities</span>
+                        <div class="flex items-center gap-3 text-xs text-slate-200">
+                            <i class="fa-solid fa-circle-check text-[#ff5e14] shrink-0 text-sm"></i>
+                            <span>Gymstick Member App & RFID phone entry</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-xs text-slate-200">
+                            <i class="fa-solid fa-circle-check text-[#ff5e14] shrink-0 text-sm"></i>
+                            <span>Smart locker & luxury shower facilities</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-xs text-slate-200">
+                            <i class="fa-solid fa-circle-check text-[#ff5e14] shrink-0 text-sm"></i>
+                            <span>1x InBody 770 composition scan per quarter</span>
                         </div>
                     </div>
                 </div>
+
+                <a 
+                    href="#free-trial" 
+                    class="block w-full text-center py-3.5 px-6 rounded-xl border border-white/20 hover:border-[#ff5e14] bg-white/[0.04] hover:bg-white/[0.08] text-white font-bold text-xs uppercase tracking-wider transition-all cursor-pointer shadow-md"
+                >
+                    Get Started
+                </a>
             </div>
 
-            <!-- Plan 2: Pro Plan (Featured) -->
-            <div class="bg-gradient-to-b from-[#181e2e] to-[#121622] border-2 border-[#e2ff38] rounded-2xl p-8 flex flex-col justify-between card-hover relative shadow-2xl shadow-[#e2ff38]/10 transform lg:-translate-y-2">
-                <!-- Most Popular Tag -->
-                <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#e2ff38] text-black text-[10px] font-black uppercase tracking-widest px-3.5 py-1 rounded-full shadow-md">
-                    Most Popular
+            <!-- Plan 2: Elite Athlete (Featured / Most Popular) -->
+            <div class="card-vibrant-active rounded-3xl p-7 sm:p-9 flex flex-col justify-between relative group hover:scale-[1.02] transition-all duration-300">
+                <!-- Floating Most Popular Badge -->
+                <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 btn-glow-orange text-white text-[10px] font-black uppercase tracking-widest px-5 py-1 rounded-full shadow-lg">
+                    ⚡ MOST POPULAR
                 </div>
 
                 <div>
-                    <h3 class="font-heading text-2xl font-bold text-white mb-2">Pro Plan</h3>
-                    <p class="text-xs text-gray-400 mb-6">For regular gym-goers aiming to level up.</p>
-
-                    <div class="mb-8">
-                        <span class="font-heading text-5xl font-extrabold text-[#e2ff38] price-amount" data-monthly="$53" data-yearly="$490">$53</span>
-                        <span class="text-xs text-gray-400 font-medium price-period">/month</span>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xs font-black uppercase tracking-wider text-[#ff9e58]">UNLIMITED ACCESS</span>
+                        <span class="text-[10px] font-mono text-[#ff9e58] bg-[#ff5e14]/20 px-2.5 py-1 rounded-md border border-[#ff5e14]/40 font-bold">TIER 02</span>
                     </div>
 
-                    <a 
-                        href="#contact" 
-                        class="block w-full text-center py-3.5 px-4 rounded-lg bg-[#e2ff38] hover:bg-[#d0ee27] text-black font-bold text-xs uppercase tracking-wider transition-all mb-8 shadow-lg shadow-[#e2ff38]/25"
-                    >
-                        Get Started
-                    </a>
+                    <h3 class="font-heading text-2xl font-black text-white mb-2 uppercase">Elite Athlete</h3>
+                    <p class="text-xs text-slate-200 mb-6 leading-relaxed">Full 24/7 all-access pass including all training zones, contrast plunge, and sauna.</p>
 
-                    <div class="space-y-3">
-                        <span class="text-xs font-bold text-white uppercase tracking-wider block mb-4">What you get</span>
-                        <div class="flex items-center gap-2.5 text-xs text-white">
-                            <i class="fa-solid fa-circle-check text-[#e2ff38]"></i>
-                            <span>Unlimited 24/7 gym access</span>
+                    <div class="mb-8 pb-6 border-b border-[#ff5e14]/30">
+                        <div class="flex items-baseline gap-1">
+                            <span class="font-heading text-4xl sm:text-5xl font-black text-white price-amount" data-monthly="$69" data-yearly="$55">$69</span>
+                            <span class="text-xs text-[#ff9e58] font-bold price-period">/ month</span>
                         </div>
-                        <div class="flex items-center gap-2.5 text-xs text-white">
-                            <i class="fa-solid fa-circle-check text-[#e2ff38]"></i>
-                            <span>Access to all HIIT & group classes</span>
+                        <span class="text-[11px] text-slate-300 block mt-1 billed-note">Billed monthly • Cancel anytime</span>
+                    </div>
+
+                    <!-- Features List -->
+                    <div class="space-y-3.5 mb-8">
+                        <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-4">INCLUDED PRIVILEGES</span>
+                        <div class="flex items-center gap-3 text-xs text-white font-medium">
+                            <i class="fa-solid fa-circle-check text-[#ff5e14] shrink-0 text-sm drop-shadow-[0_0_8px_#ff5e14]"></i>
+                            <span>24/7 RFID Biometric all-zone turnstile access</span>
                         </div>
-                        <div class="flex items-center gap-2.5 text-xs text-white">
-                            <i class="fa-solid fa-circle-check text-[#e2ff38]"></i>
-                            <span>Personalized nutrition guide</span>
+                        <div class="flex items-center gap-3 text-xs text-white font-medium">
+                            <i class="fa-solid fa-circle-check text-[#ff5e14] shrink-0 text-sm drop-shadow-[0_0_8px_#ff5e14]"></i>
+                            <span>Unlimited 3°C Cold Plunge & 90°C Cedar Sauna</span>
                         </div>
-                        <div class="flex items-center gap-2.5 text-xs text-white">
-                            <i class="fa-solid fa-circle-check text-[#e2ff38]"></i>
-                            <span>Free monthly guest pass</span>
+                        <div class="flex items-center gap-3 text-xs text-white font-medium">
+                            <i class="fa-solid fa-circle-check text-[#ff5e14] shrink-0 text-sm drop-shadow-[0_0_8px_#ff5e14]"></i>
+                            <span>All combat turf, sled & high-intensity classes</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-xs text-white font-medium">
+                            <i class="fa-solid fa-circle-check text-[#ff5e14] shrink-0 text-sm drop-shadow-[0_0_8px_#ff5e14]"></i>
+                            <span>Bi-weekly coach RPE & biomechanical check-in</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-xs text-white font-medium">
+                            <i class="fa-solid fa-circle-check text-[#ff5e14] shrink-0 text-sm drop-shadow-[0_0_8px_#ff5e14]"></i>
+                            <span>2 Complimentary VIP guest passes per month</span>
                         </div>
                     </div>
                 </div>
+
+                <a 
+                    href="#free-trial" 
+                    class="btn-glow-orange block w-full text-center py-3.5 px-6 rounded-xl text-white font-black text-xs uppercase tracking-wider shadow-lg cursor-pointer"
+                >
+                    Claim Elite Membership
+                </a>
             </div>
 
-            <!-- Plan 3: Elite Membership -->
-            <div class="bg-[#131722] border border-white/10 rounded-2xl p-8 flex flex-col justify-between card-hover">
+            <!-- Plan 3: VIP Diamond -->
+            <div class="card-vibrant rounded-3xl p-7 sm:p-9 flex flex-col justify-between group">
                 <div>
-                    <h3 class="font-heading text-2xl font-bold text-white mb-2">Elite Membership</h3>
-                    <p class="text-xs text-gray-400 mb-6">All-in access for serious transformations.</p>
-
-                    <div class="mb-8">
-                        <span class="font-heading text-5xl font-extrabold text-white price-amount" data-monthly="$99" data-yearly="$890">$99</span>
-                        <span class="text-xs text-gray-400 font-medium price-period">/month</span>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xs font-black uppercase tracking-wider text-cyan-400">PRIVATE CONCIERGE</span>
+                        <span class="text-[10px] font-mono text-cyan-400 bg-cyan-500/10 px-2.5 py-1 rounded-md border border-cyan-500/30 font-bold">TIER 03</span>
                     </div>
 
-                    <a 
-                        href="#contact" 
-                        class="block w-full text-center py-3 px-4 rounded-lg border border-white/20 hover:border-[#e2ff38] hover:bg-[#e2ff38] text-white hover:text-black font-semibold text-xs uppercase tracking-wider transition-all mb-8"
-                    >
-                        Get Started
-                    </a>
+                    <h3 class="font-heading text-2xl font-black text-white mb-2 uppercase group-hover:text-cyan-300 transition-colors">VIP Diamond</h3>
+                    <p class="text-xs text-slate-300 mb-6 leading-relaxed">Dedicated 1-on-1 CSCS strength coaching, priority plunge suites, and fuel bar.</p>
 
-                    <div class="space-y-3">
-                        <span class="text-xs font-bold text-gray-300 uppercase tracking-wider block mb-4">What you get</span>
-                        <div class="flex items-center gap-2.5 text-xs text-gray-300">
-                            <i class="fa-solid fa-circle-check text-[#e2ff38]"></i>
-                            <span>Everything in Pro Plan</span>
+                    <div class="mb-8 pb-6 border-b border-white/10">
+                        <div class="flex items-baseline gap-1">
+                            <span class="font-heading text-4xl sm:text-5xl font-black text-white price-amount" data-monthly="$129" data-yearly="$103">$129</span>
+                            <span class="text-xs text-cyan-400 font-bold price-period">/ month</span>
                         </div>
-                        <div class="flex items-center gap-2.5 text-xs text-gray-300">
-                            <i class="fa-solid fa-circle-check text-[#e2ff38]"></i>
-                            <span>1-on-1 dedicated coach sessions</span>
+                        <span class="text-[11px] text-slate-400 block mt-1 billed-note">Billed monthly • Cancel anytime</span>
+                    </div>
+
+                    <!-- Features List -->
+                    <div class="space-y-3.5 mb-8">
+                        <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-4">INCLUDED PRIVILEGES</span>
+                        <div class="flex items-center gap-3 text-xs text-slate-200">
+                            <i class="fa-solid fa-circle-check text-cyan-400 shrink-0 text-sm"></i>
+                            <span>Everything in Elite Athlete tier</span>
                         </div>
-                        <div class="flex items-center gap-2.5 text-xs text-gray-300">
-                            <i class="fa-solid fa-circle-check text-[#e2ff38]"></i>
-                            <span>Sauna & hydrotherapy lounge access</span>
+                        <div class="flex items-center gap-3 text-xs text-slate-200">
+                            <i class="fa-solid fa-circle-check text-cyan-400 shrink-0 text-sm"></i>
+                            <span>4x Private 1-on-1 coaching sessions per month</span>
                         </div>
-                        <div class="flex items-center gap-2.5 text-xs text-gray-300">
-                            <i class="fa-solid fa-circle-check text-[#e2ff38]"></i>
-                            <span>Custom biomarker & body fat tracking</span>
+                        <div class="flex items-center gap-3 text-xs text-slate-200">
+                            <i class="fa-solid fa-circle-check text-cyan-400 shrink-0 text-sm"></i>
+                            <span>Permanent private locker with laundry service</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-xs text-slate-200">
+                            <i class="fa-solid fa-circle-check text-cyan-400 shrink-0 text-sm"></i>
+                            <span>Priority booking for sauna & contrast hydrotherapy</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-xs text-slate-200">
+                            <i class="fa-solid fa-circle-check text-cyan-400 shrink-0 text-sm"></i>
+                            <span>Daily protein shake at the in-house fuel bar</span>
                         </div>
                     </div>
                 </div>
+
+                <a 
+                    href="#free-trial" 
+                    class="block w-full text-center py-3.5 px-6 rounded-xl border border-white/20 hover:border-cyan-400 bg-white/[0.04] hover:bg-cyan-500/10 text-white font-bold text-xs uppercase tracking-wider transition-all cursor-pointer shadow-md"
+                >
+                    Get VIP Access
+                </a>
+            </div>
+
+        </div>
+
+        <!-- Reassurance Footer Pill -->
+        <div class="flex items-center justify-center flex-wrap gap-8 text-xs text-slate-400 mt-14 pt-8 border-t border-white/10">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-shield-halved text-[#ff5e14]"></i>
+                <span class="text-slate-300">14-Day Full Money-Back Guarantee</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-snowflake text-cyan-400"></i>
+                <span class="text-slate-300">Freeze Anytime Free in App</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-bolt text-amber-400"></i>
+                <span class="text-slate-300">Instant Digital Activation</span>
             </div>
         </div>
+
     </div>
 </section>
 
 <!-- Pricing Toggle Script -->
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-    const toggle = document.getElementById('pricing-toggle');
-    const toggleBall = document.getElementById('pricing-toggle-ball');
-    const labelMonthly = document.getElementById('label-monthly');
-    const labelYearly = document.getElementById('label-yearly');
-    const priceAmounts = document.querySelectorAll('.price-amount');
-    const pricePeriods = document.querySelectorAll('.price-period');
+(function() {
+    window.setBillingCycle = function(isYearly) {
+        const monthlyBtn = document.getElementById('billing-monthly-btn');
+        const yearlyBtn = document.getElementById('billing-yearly-btn');
+        const priceEls = document.querySelectorAll('#pricing .price-amount');
+        const noteEls = document.querySelectorAll('#pricing .billed-note');
 
-    if (!toggle) return;
-
-    let isYearly = false;
-
-    toggle.addEventListener('click', () => {
-        isYearly = !isYearly;
         if (isYearly) {
-            toggleBall.classList.remove('translate-x-0');
-            toggleBall.classList.add('translate-x-7');
-            labelMonthly.classList.replace('text-[#e2ff38]', 'text-gray-400');
-            labelYearly.classList.replace('text-gray-400', 'text-[#e2ff38]');
+            monthlyBtn.className = "px-6 py-2 rounded-full text-xs font-black uppercase tracking-wider text-slate-400 hover:text-white transition-all cursor-pointer";
+            yearlyBtn.className = "px-6 py-2 rounded-full text-xs font-black uppercase tracking-wider text-white btn-glow-orange shadow-md transition-all cursor-pointer flex items-center gap-2";
 
-            priceAmounts.forEach(el => el.textContent = el.getAttribute('data-yearly'));
-            pricePeriods.forEach(el => el.textContent = '/year');
+            priceEls.forEach(el => {
+                el.textContent = el.getAttribute('data-yearly');
+            });
+            noteEls.forEach(el => {
+                el.textContent = "Billed annually • Save 20% discount";
+            });
         } else {
-            toggleBall.classList.remove('translate-x-7');
-            toggleBall.classList.add('translate-x-0');
-            labelMonthly.classList.replace('text-gray-400', 'text-[#e2ff38]');
-            labelYearly.classList.replace('text-[#e2ff38]', 'text-gray-400');
+            monthlyBtn.className = "px-6 py-2 rounded-full text-xs font-black uppercase tracking-wider text-white btn-glow-orange shadow-md transition-all cursor-pointer";
+            yearlyBtn.className = "px-6 py-2 rounded-full text-xs font-black uppercase tracking-wider text-slate-400 hover:text-white transition-all cursor-pointer flex items-center gap-2";
 
-            priceAmounts.forEach(el => el.textContent = el.getAttribute('data-monthly'));
-            pricePeriods.forEach(el => el.textContent = '/month');
+            priceEls.forEach(el => {
+                el.textContent = el.getAttribute('data-monthly');
+            });
+            noteEls.forEach(el => {
+                el.textContent = "Billed monthly • Cancel anytime";
+            });
         }
-    });
-});
+    };
+})();
 </script>

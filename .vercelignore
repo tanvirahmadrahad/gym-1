@@ -1,0 +1,8 @@
+.git
+.github
+tests
+node_modules
+.env
+.env.example
+.env.backup
+phpunit.xml
